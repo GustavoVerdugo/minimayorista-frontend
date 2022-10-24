@@ -2,7 +2,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Announc from '../src/components/Announc'
 import Banner from '../src/components/Banner'
+import Footer from '../src/components/Footer'
 import Navbar from '../src/components/Navbar'
+import Products from '../src/components/Products'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -24,10 +26,12 @@ export default function Home() {
         </div>
         <main>
           <Banner />
+          <Products />
         </main>
       </div>
-      <footer>
-      </footer>
+      <div className='mx-auto bottom-0'>
+        <Footer />
+      </div>
     </div>
   )
 }

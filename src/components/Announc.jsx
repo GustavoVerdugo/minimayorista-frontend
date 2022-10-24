@@ -12,7 +12,7 @@ const Announc = () => {
                         </span>
                         <p className="ml-3 truncate font-medium text-white">
                             <span className="md:hidden">Nuestra app ya esta disponible!</span>
-                            <span className="hidden md:inline">Buenas noticias! Nuestra app ya está disponible en App Store y Play Store. Descargala ya!</span>
+                            <span className="hidden md:inline text-lg">Buenas noticias! Nuestra app ya está disponible en App Store y Play Store. Descargala ya!</span>
                         </p>
                     </div>
                     <div className="order-3 mt-2 w-full flex-shrink-0 sm:order-2 sm:mt-0 sm:w-auto">

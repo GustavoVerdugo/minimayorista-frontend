@@ -35,16 +35,16 @@ const Navbar = () => {
                                 }`}
                         >
                             <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                                <Link href="/" ><li className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                                <Link href="/" ><li className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-lg font-medium">
                                     <a href="#">Inicio</a>
                                 </li></Link>
-                                <Link href="#services"><li className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                                <Link href="#services"><li className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-lg font-medium">
                                     <a href="#">Tienda</a>
                                 </li></Link>
-                                <Link href="#projects"><li className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                                <Link href="#projects"><li className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-lg font-medium">
                                     <a href="#">Mejores ofertas</a>
                                 </li></Link>
-                                <Link href="#contact"><li className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                                <Link href="#contact"><li className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-lg font-medium">
                                     <a href="#">Contactos</a>
                                 </li></Link>
                             </ul>
