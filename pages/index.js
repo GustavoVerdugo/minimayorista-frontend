@@ -4,7 +4,7 @@ import Announc from '../src/components/Announc'
 import Banner from '../src/components/Banner'
 import Footer from '../src/components/Footer'
 import Navbar from '../src/components/Navbar'
-import Products from '../src/components/Products'
+import ProductsList from '../src/components/ProductsList'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -26,7 +26,7 @@ export default function Home() {
         </div>
         <main>
           <Banner />
-          <Products />
+          <ProductsList />
         </main>
       </div>
       <div className='mx-auto bottom-0'>
