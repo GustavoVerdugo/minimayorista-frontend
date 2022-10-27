@@ -42,7 +42,7 @@ const Footer = () => {
             </div>
             <hr className="my-6 border-white sm:mx-auto lg:my-8" />
             <div className="sm:flex sm:items-center sm:justify-between">
-                <span className="text-base text-white sm:text-center ">© 2022 <a href="https://minimayorista.cl/" rel="noreferrer" className="hover:underline text-white">Minimayorista</a>. Desarrollado por <a href="https://www.corelabs.cl" target={"_blank"}>Corelabs</a>.
+                <span className="text-base text-white sm:text-center ">© 2022 <a href="https://minimayorista.cl/" rel="noreferrer" className="hover:underline text-white">Minimayorista</a>. Desarrollado por <a href="https://www.corelabs.cl" rel="noreferrer" target={"_blank"}>Corelabs</a>.
                 </span>
                 <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
                     <a href="#" className="text-white hover:text-white ">

@@ -22,8 +22,8 @@ const Announc = () => {
                                 </div>
                                 <div className="order-3 mt-2 w-full flex-shrink-0 sm:order-2 sm:mt-0 sm:w-auto">
                                     <div className="flex items-center justify-start">
-                                        <img className="w-40 h-24 drop-shadow-lg" src="http://assets.corelabs.cl/images/app-store.svg" />
-                                        <img className="w-40 h-24 drop-shadow-lg" src="http://assets.corelabs.cl/images/google-play.svg" />
+                                        <img className="w-40 h-24 drop-shadow-lg" src="http://assets.corelabs.cl/images/app-store.svg" alt='app-store'/>
+                                        <img className="w-40 h-24 drop-shadow-lg" src="http://assets.corelabs.cl/images/google-play.svg" alt='play store' />
                                     </div>
                                 </div>
                                 <div className="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
