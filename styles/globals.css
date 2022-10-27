@@ -14,3 +14,7 @@
 .bg-email {
   background-color: #EA4335
 }
+
+body {
+  overflow-x: hidden;
+}

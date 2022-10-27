@@ -20,11 +20,11 @@ export default function Home() {
       </Head>
 
       <div>
-        <div className='w-screen sticky top-0 z-50'>
+        <div className='sticky top-0 z-50'>
           <Navbar />
-          <Announc />
         </div>
-        <main>
+        <main className='flex flex-col justify-center relative'>
+          <Announc />
           <Banner />
           <ProductsList />
         </main>
