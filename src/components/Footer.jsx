@@ -3,8 +3,8 @@ const Footer = () => {
         <footer className="p-4 bg-orange-500 sm:p-6">
             <div className="md:flex md:justify-between">
                 <div className="mb-6 md:mb-0">
-                    <a href="https://minimayorista.cl/" className="flex items-center">
-                        <img src="https://minimayorista.cl/wp-content/uploads/2019/07/Logo-Minimayorista-chico.png.webp" className="h-14" alt="FlowBite Logo" />
+                    <a href="https://minimayorista.cl/" rel="noreferrer" className="flex items-center">
+                        <img src="https://minimayorista.cl/wp-content/uploads/2019/07/Logo-Minimayorista-chico.png.webp" className="h-14" alt="Minimayorista Logo" />
                     </a>
                 </div>
                 <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
@@ -42,7 +42,7 @@ const Footer = () => {
             </div>
             <hr className="my-6 border-white sm:mx-auto lg:my-8" />
             <div className="sm:flex sm:items-center sm:justify-between">
-                <span className="text-base text-white sm:text-center ">© 2022 <a href="https://minimayorista.cl/" className="hover:underline text-white">Minimayorista</a>. Desarrollado por <a href="https://www.corelabs.cl" target={"_blank"}>Corelabs</a>.
+                <span className="text-base text-white sm:text-center ">© 2022 <a href="https://minimayorista.cl/" rel="noreferrer" className="hover:underline text-white">Minimayorista</a>. Desarrollado por <a href="https://www.corelabs.cl" target={"_blank"}>Corelabs</a>.
                 </span>
                 <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
                     <a href="#" className="text-white hover:text-white ">
