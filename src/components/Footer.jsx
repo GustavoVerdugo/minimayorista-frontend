@@ -9,35 +9,32 @@ const Footer = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                     <div>
-                        <h2 className="mb-6 text-sm font-semibold text-white uppercase">Resources</h2>
+                        <h2 className="mb-6 text-base font-semibold text-white uppercase">Horarios de atención</h2>
                         <ul className="text-white">
                             <li className="mb-4">
-                                <a href="https://flowbite.com/" className="hover:underline">Flowbite</a>
+                                <span className="text-base font-semibold">Lunes a Viernes 11 a 15 hrs y de 16 a 19 hrs</span>
                             </li>
                             <li>
-                                <a href="https://tailwindcss.com/" className="hover:underline">Tailwind CSS</a>
+                                <span className="text-base font-semibold">Sábado de 11 a 15 hrs</span>
                             </li>
                         </ul>
                     </div>
                     <div>
-                        <h2 className="mb-6 text-sm font-semibold text-white uppercase">Follow us</h2>
+                        <h2 className="mb-6 text-base font-semibold text-white uppercase">Contactos</h2>
                         <ul className="text-white">
                             <li className="mb-4">
-                                <a href="https://github.com/themesberg/flowbite" className="hover:underline ">Github</a>
+                                <span className="text-base font-semibold">+56 9 2038 7991</span>
                             </li>
                             <li>
-                                <a href="https://discord.gg/4eeurUVvTy" className="hover:underline">Discord</a>
+                                <span className="text-base font-semibold">contacto@minimayorista.cl</span>
                             </li>
                         </ul>
                     </div>
                     <div>
-                        <h2 className="mb-6 text-sm font-semibold text-white uppercase">Legal</h2>
+                        <h2 className="mb-6 text-sm font-semibold text-white uppercase">Sucursales</h2>
                         <ul className="text-white">
                             <li className="mb-4">
-                                <a href="#" className="hover:underline">Privacy Policy</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:underline">Terms &amp; Conditions</a>
+                                <span className="text-base font-semibold">Del prado #1864, La Florida (Casa Matríz)</span>
                             </li>
                         </ul>
                     </div>

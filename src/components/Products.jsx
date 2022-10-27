@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faBullhorn, faCartPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faBullhorn, faCartPlus, faMinus, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faSquarePlus, faSquareMinus } from "@fortawesome/free-regular-svg-icons"
 import Pagination from './Pagination';
 
@@ -45,7 +45,7 @@ const Products = () => {
                                     <del>
                                         <p className="text-sm text-gray-600 cursor-auto ml-2">${items.precio}</p>
                                     </del>
-                                    <button className={items.agotado ? `ml-auto bg-gray-400 rounded-md p-2` : `ml-auto bg-orange-500 rounded-md p-2`} disabled={items.agotado}
+                                    <button className={items.agotado ? `ml-auto bg-gray-400 rounded-md p-2` : `ml-auto bg-orange-500 rounded-md p-2 hover:bg-orange-600`} disabled={items.agotado}
                                         onClick={() => { passVehiculoDetail(items); setIsOpen(!isOpen) }}>
                                         <FontAwesomeIcon icon={faCartPlus} className='h-6 w-6 text-white' aria-hidden='true' />
                                     </button>
@@ -92,7 +92,7 @@ const Products = () => {
                                             <>
                                                 <Dialog.Title
                                                     as="h3"
-                                                    className="flex flex-row justify-center text-lg font-medium leading-6 text-gray-900"
+                                                    className="flex flex-row justify-center text-lg font-base leading-6 text-gray-900"
                                                 >
                                                     ¿ Añadir {item.name} al Carrito ?
                                                 </Dialog.Title>
@@ -102,24 +102,27 @@ const Products = () => {
                                                         className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
                                                     />
                                                     <div className='flex flex-row justify-center items-center mt-8'>
-                                                        <span className=''>Cantidad</span>
-                                                        <FontAwesomeIcon icon={faSquareMinus} className='w-6 h-6 ml-5' aria-hidden="true" />
-                                                        <span className='mx-2'>1</span>
-                                                        <FontAwesomeIcon icon={faSquarePlus} className='w-6 h-6' aria-hidden="true" />
+                                                        <div className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'>
+                                                            <FontAwesomeIcon icon={faMinus} className='w-5 h-5' aria-hidden="true" />
+                                                        </div>
+                                                        <span className='mx-4 font-bold text-lg'>1</span>
+                                                        <div className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'>
+                                                            <FontAwesomeIcon icon={faPlus} className='w-5 h-5' aria-hidden="true" />
+                                                        </div>
                                                     </div>
                                                 </div>
 
                                                 <div className="flex flex-row justify-evenly mt-10">
                                                     <button
                                                         type="button"
-                                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                                        className="inline-flex justify-center rounded-md border-gray-600 bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
                                                         onClick={() => { setIsOpen(false) }}
                                                     >
                                                         Cancelar
                                                     </button>
                                                     <button
                                                         type="button"
-                                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                                        className="inline-flex justify-center rounded-md border border-transparent bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600"
                                                         onClick={() => { setIsOpen(false) }}
                                                     >
                                                         Aceptar
