@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Announc from '../src/components/Announc'
 import Banner from '../src/components/Banner'
 import Footer from '../src/components/Footer'
+import FormSubs from '../src/components/FormSubs'
 import Navbar from '../src/components/Navbar'
 import ProductsList from '../src/components/ProductsList'
 import styles from '../styles/Home.module.css'
@@ -27,6 +28,7 @@ export default function Home() {
           <Announc />
           <Banner />
           <ProductsList />
+          <FormSubs />
         </main>
       </div>
       <div className='mx-auto bottom-0'>
