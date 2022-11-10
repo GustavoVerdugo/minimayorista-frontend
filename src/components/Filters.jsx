@@ -3,6 +3,7 @@ import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import Products from './Products'
+import ProductsMobile from './ProductsMobile'
 
 const sortOptions = [
     { name: 'Most Popular', href: '#', current: true },
@@ -283,8 +284,11 @@ export default function Filters() {
                             </form>
 
                             {/* Product grid */}
-                            <div className="lg:col-span-3">
+                            <div className="hidden md:block lg:col-span-3">
                                 <Products />
+                            </div>
+                            <div className="block md:hidden">
+                                <ProductsMobile />
                             </div>
                         </div>
                     </section>
