@@ -26,21 +26,25 @@ const ProductsMobile = () => {
 
     return (
         <>
-            <section className='w-fit mx-auto flex flex-col justify-center items-center'>
+            <section className='w-full mx-1 flex flex-col'>
                 {
                     products.map((items) => (
-                        <div className='flex flex-row justify-evenly items-center w-full h-fit bg-white rounded-md' key={items.id}>
-                            <div className='w-14 h-14'>
+                        <div className='flex flex-row justify-around w-full h-fit bg-white rounded-md' key={items.id}>
+                            <div className='w-16 h-16'>
                                 <img src={items.img} />
                             </div>
-                            <div className='flex flex-col'>
-                                <span className='text-gray-400 mr-3 uppercase text-xs'>{items.marca}</span>
+                            <div className='flex-shrink w-1/2 justify-center items-start'>
+                                <span className='text-gray-800 mr-3 uppercase text-xs'>{items.marca}</span>
+                                <div className='flex-row'>
+                                    <span className='text-gray-800 mr-3 uppercase text-xs line-through'>${items.precio}</span>
+                                    <span className='text-gray-800 mr-3 uppercase text-sm font-semibold'>${items.oferta}</span>
+                                </div>
                             </div>
-                            <div className='flex flex-col'>
-                                <span className='text-gray-400 mr-3 uppercase text-xs'>${items.precio}</span>
-                            </div>
-                            <div className='flex flex-col'>
-                                <FontAwesomeIcon icon={faCartPlus} className='h-6 w-6 text-black' aria-hidden='true' />
+
+                            <div className='justify-center items-end '>
+                                <div className='m-2 flex-row justify-end items-center bg-orange-500 p-2 rounded-2xl'>
+                                    <FontAwesomeIcon icon={faCartPlus} className='h-6 w-6 text-white' aria-hidden='true' />
+                                </div>
                             </div>
                         </div>
                     ))
