@@ -38,13 +38,13 @@ const Contact = () => {
     return (
         <div className="w-screen flex flex-row justify-center mt-5 mb-10">
             <div className="hidden md:flex max-w-xs mr-10">
-                <img src={mail_logo} />
+                <img src={`https://assets.corelabs.cl/images/enviar-mail.svg`} />
             </div>
             {!send ?
                 <div className="flex flex-col justify-center md:ml-10 lg:w-96">
                     <div className='text-center mb-5'>
                         <span className='text-2xl font-semibold text-gray-700'>
-                            Contactanos!
+                            Recibe las mejores ofertas en tu correo !
                         </span>
                     </div>
                     <form className='flex flex-col justify-start' ref={form} onSubmit={sendEmail}>
