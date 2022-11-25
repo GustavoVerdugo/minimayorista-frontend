@@ -168,7 +168,7 @@ export default function Filters() {
                 </Transition.Root>
 
                 <main className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-baseline justify-between border-b border-gray-200 pt-24 pb-6">
+                    <div className="flex items-baseline justify-between border-b border-gray pt-24 pb-6">
                         <h1 className="md:text-4xl font-bold tracking-tight text-gray-900">Productos</h1>
 
                         <div className="flex items-center">
@@ -177,7 +177,7 @@ export default function Filters() {
                                     <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                                         Ordenar
                                         <ChevronDownIcon
-                                            className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                                            className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-dark group-hover:text-gray-500"
                                             aria-hidden="true"
                                         />
                                     </Menu.Button>
@@ -215,13 +215,13 @@ export default function Filters() {
                                 </Transition>
                             </Menu>
 
-                            <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
+                            <button type="button" className="-m-2 ml-5 p-2 text-gray-dark hover:text-gray-500 sm:ml-7">
                                 <span className="sr-only">View grid</span>
                                 <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
                             </button>
                             <button
                                 type="button"
-                                className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
+                                className="-m-2 ml-4 p-2 text-gray-dark hover:text-gray-dark sm:ml-6 lg:hidden"
                                 onClick={() => setMobileFiltersOpen(true)}
                             >
                                 <span className="sr-only">Filters</span>

@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <footer className="p-4 bg-orange-500 sm:p-6">
+        <footer className="p-4 bg-blue sm:p-6">
             <div className="md:flex md:justify-between">
                 <div className="mb-6 md:mb-0">
                     <a href="https://minimayorista.cl/" rel="noreferrer" className="flex items-center">

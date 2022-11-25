@@ -8,7 +8,7 @@ const Announc = () => {
         <>
             {
                 active ?
-                    <div className="bg-orange-600">
+                    <div className="bg-blue-strong">
                         < div className="mx-auto max-w-7xl py-3 px-3 sm:px-6 lg:px-8" >
                             <div className="flex flex-wrap items-center justify-between">
                                 <div className="flex w-0 flex-1 items-center">

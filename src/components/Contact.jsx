@@ -38,12 +38,12 @@ const Contact = () => {
     return (
         <div className="w-screen flex flex-row justify-center mt-5 mb-10">
             <div className="hidden md:flex max-w-xs mr-10">
-                <img src={`https://assets.corelabs.cl/images/enviar-mail.svg`} />
+                <img src={`https://assets.corelabs.cl/images/subscribe-minimayorista.svg`} />
             </div>
             {!send ?
                 <div className="flex flex-col justify-center md:ml-10 lg:w-96">
                     <div className='text-center mb-5'>
-                        <span className='text-2xl font-semibold text-gray-700'>
+                        <span className='text-2xl font-semibold text-gray-dark'>
                             Recibe las mejores ofertas en tu correo !
                         </span>
                     </div>
@@ -56,9 +56,9 @@ const Contact = () => {
                         <textarea placeholder='Mensaje' name='message' className='m-2 p-2 rounded-md h-64 md:w-full text-lg bg-gray-100 focus:outline-none resize-none' />
                         <div className='flex text-center items-center'>
                             {!loading ?
-                                <input type='submit' className="bg-orange-400 m-2 p-2 rounded-md text-white font-semibold text-lg w-1/2" value={`Enviar`} />
+                                <input type='submit' className="bg-blue m-2 p-2 rounded-md text-white font-semibold text-lg w-1/2" value={`Enviar`} />
                                 :
-                                <div className="flex justify-center items-center bg-orange-400 m-2 p-2 rounded-md text-white font-semibold text-lg w-1/2">
+                                <div className="flex justify-center items-center bg-blue m-2 p-2 rounded-md text-white font-semibold text-lg w-1/2">
                                     <div class="animate-spin rounded-full h-6 w-6 border-t-2 border-white"></div>
                                 </div>}
                         </div>
@@ -66,7 +66,7 @@ const Contact = () => {
                 </div> :
                 <div className="flex flex-row justify-center items-center md:ml-10 lg:w-96">
                     <div className='text-center mb-5'>
-                        <span className='text-2xl font-semibold flex text-gray-700'>
+                        <span className='text-2xl font-semibold flex text-gray'>
                             <CheckCircleIcon className="h-9 w-9" aria-hidden="true" /><text>Correo Enviado</text>
                         </span>
                     </div>

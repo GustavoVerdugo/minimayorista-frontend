@@ -8,9 +8,11 @@ import Footer from '../src/components/Footer'
 import FormSubs from '../src/components/FormSubs'
 import Navbar from '../src/components/Navbar'
 import ProductsList from '../src/components/ProductsList'
+import useFetch from '../src/helpers/useFetch'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+  const { loading } = useFetch();
   return (
     <div className='bg-white w-screen h-screen'>
       <Head>
@@ -23,16 +25,24 @@ export default function Home() {
       </Head>
 
       <div>
-        <div className='sticky top-0 z-50'>
-          <Navbar />
-        </div>
-        <main className='flex flex-col justify-center relative'>
-          <Announc />
-          <Banner />
-          <BrandSlider />
-          <ProductsList />
-          <Contact />
-        </main>
+        <>
+          {
+            loading ? <h1>cargando</h1>
+              :
+              <>
+                <div className='sticky top-0 z-50'>
+                  <Navbar />
+                </div>
+                <main className='flex flex-col justify-center relative'>
+                  <Announc />
+                  <Banner />
+                  <BrandSlider />
+                  <ProductsList />
+                  <Contact />
+                </main>
+              </>
+          }
+        </>
       </div>
       <div className='mx-auto bottom-0'>
         <Footer />
