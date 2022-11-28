@@ -1,11 +1,13 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useContext, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faBullhorn, faCartPlus, faMinus, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faSquarePlus, faSquareMinus } from "@fortawesome/free-regular-svg-icons"
 import Pagination from './Pagination';
+import { DataContext } from '../context/DataContext';
 
 const ProductsMobile = () => {
+    const { productos,saveProduct,loading } = useContext(DataContext);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenDetail, setIsOpenDetail] = useState(false);
     const [addCart, setAddCart] = useState(false);
@@ -28,16 +30,17 @@ const ProductsMobile = () => {
         <>
             <section className='w-full mx-1 flex flex-col'>
                 {
-                    products.map((items) => (
+                    !loading ?
+                    productos.map((items) => (
                         <div className='flex flex-row justify-around w-full h-fit bg-white rounded-md' key={items.id}>
                             <div className='w-16 h-16'>
-                                <img src={items.img} />
+                                <img src={'http://localhost:1337'+items.attributes.imagen_principal.data.attributes.url} />
                             </div>
                             <div className='flex-shrink w-1/2 justify-center items-start'>
-                                <span className='text-gray-800 mr-3 uppercase text-xs'>{items.marca}</span>
+                                <span className='text-gray-800 mr-3 uppercase text-xs'>{items.attributes.nombre}</span>
                                 <div className='flex-row'>
-                                    <span className='text-gray-800 mr-3 uppercase text-xs line-through'>${items.precio}</span>
-                                    <span className='text-gray-800 mr-3 uppercase text-sm font-semibold'>${items.oferta}</span>
+                                    <span className='text-gray-800 mr-3 uppercase text-xs line-through'>${items.attributes.precio}</span>
+                                    <span className='text-gray-800 mr-3 uppercase text-sm font-semibold'>${items.attributes.precio_oferta}</span>
                                 </div>
                             </div>
 
@@ -48,6 +51,7 @@ const ProductsMobile = () => {
                             </div>
                         </div>
                     ))
+                    : null
                 }
             </section>
             <div className="flex justify-end">

@@ -53,7 +53,7 @@ const Contact = () => {
                         <input hidden name='from_name' value={'automotoraelias.cl'} />
                         <input placeholder='Correo' type={'text'} onChange={isEmail} name='email' className={`m-2 p-2 outline-none rounded-md h-fit md:w-full text-lg bg-gray-100 ${ valid ? 'focus:outline-none': 'focus:outline-red-500' }`} />
                         {!valid ? <span className='text-xs font-extralight text-red-500 ml-2'>Email Invalido</span> : null }
-                        <textarea placeholder='Mensaje' name='message' className='m-2 p-2 rounded-md h-64 md:w-full text-lg bg-gray-100 focus:outline-none resize-none' />
+                        {/* <textarea placeholder='Mensaje' name='message' className='m-2 p-2 rounded-md h-64 md:w-full text-lg bg-gray-100 focus:outline-none resize-none' /> */}
                         <div className='flex text-center items-center'>
                             {!loading ?
                                 <input type='submit' className="bg-blue m-2 p-2 rounded-md text-white font-semibold text-lg w-1/2" value={`Enviar`} />

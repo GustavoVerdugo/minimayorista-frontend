@@ -24,29 +24,32 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
       </Head>
 
-      <div>
-        <>
-          {
-            loading ? <h1>cargando</h1>
-              :
-              <>
-                <div className='sticky top-0 z-50'>
-                  <Navbar />
-                </div>
-                <main className='flex flex-col justify-center relative'>
-                  <Announc />
-                  <Banner />
-                  <BrandSlider />
-                  <ProductsList />
-                  <Contact />
-                </main>
-              </>
-          }
-        </>
-      </div>
-      <div className='mx-auto bottom-0'>
-        <Footer />
-      </div>
+
+      <>
+        {
+          loading ? <h1>cargando</h1>
+            :
+            <>
+              <div>
+                <>
+                  <div className='sticky top-0 z-50'>
+                    <Navbar />
+                  </div>
+                  <main className='flex flex-col justify-center relative'>
+                    <Announc />
+                    <Banner />
+                    <BrandSlider />
+                    <ProductsList />
+                    <Contact />
+                  </main>
+                </>
+              </div>
+              <div className='mx-auto bottom-0'>
+                <Footer />
+              </div>
+            </>
+        }
+      </>
     </div>
   )
 }

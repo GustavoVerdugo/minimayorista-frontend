@@ -1,66 +1,91 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState, useRef, useContext } from 'react'
+import { Fragment, useState, useRef, useContext, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faBullhorn, faCartPlus, faMinus, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faSquarePlus, faSquareMinus } from "@fortawesome/free-regular-svg-icons"
 import Pagination from './Pagination';
 import { DataContext } from '../context/DataContext';
+import useFetchCustom from '../helpers/useFetchCustom';
+const qs = require('qs');
 
 const Products = () => {
-    const { productos,saveProduct,loading } = useContext(DataContext);
+    const { productos, saveProduct, loading, filters, saveQuery } = useContext(DataContext);
     const aboutRef = useRef();
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenDetail, setIsOpenDetail] = useState(false);
     const [addCart, setAddCart] = useState(false);
     const [detail, setDetail] = useState([]);
 
-    const products = [
-        { id: 1, name: 'Arveja', marca: 'Minuto verde', precio: 190, oferta: 110, agotado: false, img: "https://minimayorista.cl/wp-content/uploads/2020/07/arvejas-intertagro-minimayorista-600x599.jpg" },
-        { id: 2, name: 'Atun', marca: 'Angelmo', precio: 140, oferta: 99, agotado: false, img: "https://minimayorista.cl/wp-content/uploads/2022/08/desmenuzado-angelmo-minimayorista-600x599.jpg" },
-        { id: 3, name: 'Baby Ribs', marca: 'Super Cerdo', precio: 200, oferta: 180, agotado: false, img: "https://minimayorista.cl/wp-content/uploads/2020/08/baby-ribs.supercerdo.1-kilo-minimayorista-600x600.jpg.webp" },
-        { id: 4, name: 'Carne Molida', marca: 'Especial', precio: 100, oferta: 70, agotado: false, img: "https://minimayorista.cl/wp-content/uploads/2020/04/molida-especial-minimayorista-300x300.jpg.webp" },
-        { id: 5, name: 'Champiñones', marca: 'Minuto verde', precio: 190, oferta: 110, agotado: false, img: "https://minimayorista.cl/wp-content/uploads/2020/06/champiñon-kilo-minuto-verde-minimayorista-600x600.jpg.webp" },
-        { id: 6, name: 'Cereal', marca: 'Colacao', precio: 80, oferta: 50, agotado: true, img: "https://minimayorista.cl/wp-content/uploads/2022/09/colacao-pillows-720grs-minimayorista-600x599.jpg.webp" },
-    ]
-
-    async function passVehiculoDetail(data) {
-        await setDetail(data)
-    }
+    const { searching } = useFetchCustom();
+    useEffect(() => {
+        let query = null;
+        if (filters[0]?.marcas.length > 0) {
+            query = qs.stringify({
+                filters: {
+                    marca: {
+                        id: {
+                            $in: filters[0].marcas
+                        }
+                    },
+                },
+            }, {
+                encodeValuesOnly: true,
+            });
+            saveQuery(query);
+        } else if (filters[0]?.categorias.length > 0) {
+            query = qs.stringify({
+                filters: {
+                    categorias: {
+                        id: {
+                            $in: filters[0].categorias
+                        }
+                    },
+                },
+            }, {
+                encodeValuesOnly: true,
+            });
+            saveQuery(query);
+        }
+        console.log(query)
+    }, [filters])
 
     return (
         <>
-            <section ref={aboutRef} id="products" className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+            <section ref={aboutRef} id="products" className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
 
                 {
-                    !loading ? 
-                    productos.map((items) => (
-                        <div className="w-44 h-fit bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl" key={items.id}>
-                            <a onClick={() => { setDetail([items]); setIsOpenDetail(!isOpenDetail) }}>
-                                {!items.attributes.status_stock ?
-                                    <span className='absolute bg-red-500 text-white p-2 rounded-sm text-lg'>Agotado</span>
-                                    : false}
-                                <img src={'http://localhost:1337'+items.attributes.imagen_principal.data.attributes.url} alt="Product" className="h-40 w-44 object-cover rounded-t-xl" />
-                                <div className="px-4 pt-3 w-44">
-                                    <span className="text-gray-400 mr-3 uppercase text-xs">{items.marca}</span>
-                                    <p className="text-lg font-bold text-black truncate block capitalize">{items.attributes.marca.data.attributes.nombre}</p>
-                                </div>
-                            </a>
-                            <div className="px-4 pb-3 w-44">
-                                <div className="flex items-center">
-                                    <p className="text-lg font-semibold text-black cursor-auto my-3">${items.attributes.precio_oferta}</p>
-                                    <del>
-                                        <p className="text-sm text-gray-600 cursor-auto ml-2">${items.attributes.precio}</p>
-                                    </del>
-                                    <button className={!items.attributes.status_stock ? `ml-auto bg-gray-200 rounded-md p-2` : `ml-auto bg-blue rounded-md p-2 hover:bg-blue-strong`} disabled={items.attributes.status_stock}
-                                        onClick={() => { passVehiculoDetail(items); setIsOpen(!isOpen) }}>
-                                        <FontAwesomeIcon icon={faCartPlus} className='h-6 w-6 text-white' aria-hidden='true' />
-                                    </button>
-                                </div>
-                            </div>
+                    !loading ?
 
-                        </div>
-                    ))
-                    :null
+
+
+                        productos.map((items) => (
+                            <div className="w-48 h-fit bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl" key={items.id}>
+                                <a onClick={() => { setDetail([items]); setIsOpenDetail(!isOpenDetail) }}>
+                                    {!items.attributes.status_stock ?
+                                        <span className='absolute bg-red-500 text-white p-2 rounded-sm text-lg'>Agotado</span>
+                                        : false}
+                                    <img src={'http://localhost:1337' + items.attributes.imagen_principal.data.attributes.url} alt="Product" className="h-40 w-44 object-cover rounded-t-xl" />
+                                    <div className="px-4 pt-3 w-44">
+                                        <span className="text-gray-400 mr-3 uppercase text-xs">{items.attributes.marca.data.attributes.nombre}</span>
+                                        <p className="text-base font-bold text-black truncate block capitalize">{items.attributes.nombre}</p>
+                                    </div>
+                                </a>
+                                <div className="px-4 pb-3 w-44">
+                                    <div className="flex flex-row items-center">
+                                        <p className="text-lg font-semibold text-black cursor-auto my-3">${parseInt(items.attributes.precio_oferta).toLocaleString('es-CL')}</p>
+                                        <del>
+                                            <p className="text-sm text-gray-600 cursor-auto ml-2">${parseInt(items.attributes.precio).toLocaleString('es-CL')}</p>
+                                        </del>
+                                        <button className={!items.attributes.status_stock ? `ml-2 bg-gray-200 rounded-md p-2` : `ml-2 bg-blue rounded-md p-2 hover:bg-blue-strong`} disabled={!items.attributes.status_stock}
+                                            onClick={() => { setDetail([items]); setIsOpen(!isOpen) }}>
+                                            <FontAwesomeIcon icon={faCartPlus} className='h-6 w-6 text-white' aria-hidden='true' />
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        ))
+                        : null
                 }
             </section >
             <div className="flex justify-end">
@@ -94,20 +119,18 @@ const Products = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <h1>${detail}</h1>
                                     {
-                                        
                                         detail.map((item) => (
                                             <>
                                                 <Dialog.Title
                                                     as="h3"
-                                                    className="flex flex-row justify-center text-lg font-bold leading-6 text-gray-900"
+                                                    className="flex flex-row justify-center items-center max-w-sm text-lg font-bold leading-6 text-gray-900"
                                                 >
                                                     ¿ Añadir "{item.attributes.nombre}" al Carrito ?
                                                 </Dialog.Title>
                                                 <div className="mt-8">
                                                     <img
-                                                        src={'http://localhost:1337'+item.attributes.imagen_principal.data.attributes.url}
+                                                        src={'http://localhost:1337' + item.attributes.imagen_principal.data.attributes.url}
                                                         className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
                                                     />
                                                     <div className='flex flex-row justify-center items-center mt-8'>
@@ -186,7 +209,7 @@ const Products = () => {
                                                 </Dialog.Title>
                                                 <div className="mt-8">
                                                     <img
-                                                        src={'http://localhost:1337'+item.attributes.imagen_principal.data.attributes.url}
+                                                        src={'http://localhost:1337' + item.attributes.imagen_principal.data.attributes.url}
                                                         className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
                                                     />
                                                     <div className='flex flex-col justify-center items-center mt-8'>
@@ -207,7 +230,7 @@ const Products = () => {
                                                                 </button>
                                                                 <button
                                                                     type="button"
-                                                                    className="inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong"
+                                                                    className={!item.attributes.status_stock ? `inline-flex justify-center rounded-md border border-transparent bg-gray-200 px-4 py-2 text-sm font-medium text-white` : `inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong`} disabled={!item.attributes.status_stock}
                                                                     onClick={() => { setAddCart(true) }}
                                                                 >
                                                                     Agregar al carrito
