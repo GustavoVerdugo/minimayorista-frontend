@@ -126,7 +126,7 @@ const Products = () => {
                                                     as="h3"
                                                     className="flex flex-row justify-center items-center max-w-sm text-lg font-bold leading-6 text-gray-900"
                                                 >
-                                                    ¿ Añadir "{item.attributes.nombre}" al Carrito ?
+                                                    ¿ Añadir &quot;{item.attributes.nombre}&quot; al Carrito ?
                                                 </Dialog.Title>
                                                 <div className="mt-8">
                                                     <img
