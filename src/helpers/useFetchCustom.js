@@ -8,7 +8,7 @@ const useFetchCustom = (url) => {
     const getProductsByFilters = async () => {
         if (query != null) {
             setSearching(true);
-            const response = await fetch(`${LOCAL}productos?${query}&populate=*&pagination[page]=1&pagination[pageSize]=9`)
+            const response = await fetch(`${PROD}productos?${query}&populate=*&pagination[page]=1&pagination[pageSize]=9`)
             const data = await response.json()
             await saveProduct(data.data);
         }

@@ -1,4 +1,4 @@
 module.exports = {
     LOCAL: 'http://localhost:1337/api/',
-    PROD: ''
+    PROD: 'https://minimayorista-back.onrender.com/api/'
 }
