@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { LOCAL } from '../config'
+import { LOCAL, PROD } from '../config'
 import { DataContext } from '../context/DataContext'
 
 const useFetchCustom = (url) => {
