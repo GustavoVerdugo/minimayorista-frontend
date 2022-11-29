@@ -9,12 +9,27 @@ import useFetchCustom from '../helpers/useFetchCustom';
 const qs = require('qs');
 
 const Products = () => {
-    const { productos, saveProduct, loading, filters, saveQuery } = useContext(DataContext);
+    const { productos, loading, filters, saveQuery, saveCart } = useContext(DataContext);
     const aboutRef = useRef();
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenDetail, setIsOpenDetail] = useState(false);
     const [addCart, setAddCart] = useState(false);
     const [detail, setDetail] = useState([]);
+    const [cant, setCant] = useState(1);
+
+    const addCant = () => {
+        setCant(cant + 1)
+    }
+
+    const delCant = () => {
+        if (cant > 1) {
+            setCant(cant - 1)
+        }
+    }
+
+    const purgCant = () => {
+        setCant(1);
+    }
 
     const { searching } = useFetchCustom();
     useEffect(() => {
@@ -46,7 +61,6 @@ const Products = () => {
             });
             saveQuery(query);
         }
-        console.log(query)
     }, [filters])
 
     return (
@@ -60,16 +74,17 @@ const Products = () => {
 
                         productos.map((items) => (
                             <div className="w-48 h-fit bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl" key={items.id}>
-                                <a onClick={() => { setDetail([items]); setIsOpenDetail(!isOpenDetail) }}>
+                                <button onClick={() => { setDetail([items]); setIsOpenDetail(!isOpenDetail) }}
+                                    disabled={!items.attributes.status_stock}>
                                     {!items.attributes.status_stock ?
-                                        <span className='absolute bg-red-500 text-white p-2 rounded-sm text-lg'>Agotado</span>
+                                        <span className='relative -left-12 top-0 bg-red-500 text-white p-2 rounded-sm text-lg'>Agotado</span>
                                         : false}
                                     <img src={'http://localhost:1337' + items.attributes.imagen_principal.data.attributes.url} alt="Product" className="h-40 w-44 object-cover rounded-t-xl" />
                                     <div className="px-4 pt-3 w-44">
                                         <span className="text-gray-400 mr-3 uppercase text-xs">{items.attributes.marca.data.attributes.nombre}</span>
                                         <p className="text-base font-bold text-black truncate block capitalize">{items.attributes.nombre}</p>
                                     </div>
-                                </a>
+                                </button>
                                 <div className="px-4 pb-3 w-44">
                                     <div className="flex flex-row items-center">
                                         <p className="text-lg font-semibold text-black cursor-auto my-3">${parseInt(items.attributes.precio_oferta).toLocaleString('es-CL')}</p>
@@ -134,13 +149,15 @@ const Products = () => {
                                                         className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
                                                     />
                                                     <div className='flex flex-row justify-center items-center mt-8'>
-                                                        <div className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'>
+                                                        <button className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'
+                                                            onClick={() => { delCant() }}>
                                                             <FontAwesomeIcon icon={faMinus} className='w-5 h-5' aria-hidden="true" />
-                                                        </div>
-                                                        <span className='mx-4 font-bold text-lg'>1</span>
-                                                        <div className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'>
+                                                        </button>
+                                                        <span className='mx-4 font-bold text-lg'>{cant}</span>
+                                                        <button className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'
+                                                            onClick={() => { addCant() }}>
                                                             <FontAwesomeIcon icon={faPlus} className='w-5 h-5' aria-hidden="true" />
-                                                        </div>
+                                                        </button>
                                                     </div>
                                                 </div>
 
@@ -148,14 +165,24 @@ const Products = () => {
                                                     <button
                                                         type="button"
                                                         className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                        onClick={() => { setIsOpen(false) }}
+                                                        onClick={() => { purgCant(); setIsOpen(false); }}
                                                     >
                                                         Cancelar
                                                     </button>
                                                     <button
                                                         type="button"
                                                         className="inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong"
-                                                        onClick={() => { setIsOpen(false) }}
+                                                        onClick={() => {
+                                                            saveCart({
+                                                                id: item.id,
+                                                                name: item.attributes.nombre,
+                                                                price: item.attributes.precio_oferta,
+                                                                img: item.attributes.imagen_principal.data.attributes.url,
+                                                                cant: cant
+                                                            });
+                                                            setIsOpen(false);
+                                                            purgCant();
+                                                        }}
                                                     >
                                                         Aceptar
                                                     </button>

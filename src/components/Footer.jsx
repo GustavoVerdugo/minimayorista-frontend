@@ -7,8 +7,8 @@ const Footer = () => {
                         <img src="https://minimayorista.cl/wp-content/uploads/2019/07/Logo-Minimayorista-chico.png.webp" className="h-14" alt="Minimayorista Logo" />
                     </a>
                 </div>
-                <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-                    <div>
+                <div className="flex flex-col md:flex-row">
+                    <div className="mb-2 md:mr-3">
                         <h2 className="mb-6 text-base font-semibold text-white uppercase">Horarios de atención</h2>
                         <ul className="text-white">
                             <li className="mb-4">
@@ -19,7 +19,7 @@ const Footer = () => {
                             </li>
                         </ul>
                     </div>
-                    <div>
+                    <div className="mb-2 md:mr-3">
                         <h2 className="mb-6 text-base font-semibold text-white uppercase">Contactos</h2>
                         <ul className="text-white">
                             <li className="mb-4">
@@ -30,7 +30,7 @@ const Footer = () => {
                             </li>
                         </ul>
                     </div>
-                    <div>
+                    <div className="mb-2 md:mr-3">
                         <h2 className="mb-6 text-sm font-semibold text-white uppercase">Sucursales</h2>
                         <ul className="text-white">
                             <li className="mb-4">
