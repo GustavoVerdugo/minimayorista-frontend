@@ -9,7 +9,15 @@ const Navbar = () => {
     const [navbar, setNavbar] = useState(false);
     const [modalCartVisible, setModalCartVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
-    const { cart } = useContext(DataContext);
+    const { cart, editCantidad} = useContext(DataContext);
+    const sumCant = (prod, cant) => {
+        editCantidad(prod)
+    }
+    const delCant = (prod, cant) => {
+        if (cant > 1) {
+            editCantidad(prod)
+        }
+    }
     return (
         <>
             <nav className="w-screen bg-blue">
@@ -115,11 +123,35 @@ const Navbar = () => {
                                                                     <span className='text-gray-800 mr-3 uppercase text-sm font-semibold'>${parseInt(ct.price).toLocaleString('es-CL')}</span>
                                                                 </div>
                                                                 <div className='flex flex-row justify-start items-center'>
-                                                                    <button className="bg-gray-100 rounded-sm p-0.5">
+                                                                    <button className="bg-gray-100 rounded-sm p-0.5"
+                                                                        onClick={() => {
+                                                                            delCant(
+                                                                                {
+                                                                                    id: ct.id,
+                                                                                    name: ct.name,
+                                                                                    price: ct.price,
+                                                                                    img: ct.img,
+                                                                                    cant: ct.cant - 1
+                                                                                },
+                                                                                ct.cant
+                                                                            )
+                                                                        }}>
                                                                         <FontAwesomeIcon icon={faMinus} className='h-5 w-5 text-gray-dark' aria-hidden='true' />
                                                                     </button>
                                                                     <span className='text-gray-dark mx-2 text-base font-semibold'>{ct.cant}</span>
-                                                                    <button className="bg-gray-100 rounded-sm p-0.5">
+                                                                    <button className="bg-gray-100 rounded-sm p-0.5"
+                                                                        onClick={() => {
+                                                                            sumCant(
+                                                                                {
+                                                                                    id: ct.id,
+                                                                                    name: ct.name,
+                                                                                    price: ct.price,
+                                                                                    img: ct.img,
+                                                                                    cant: ct.cant + 1
+                                                                                },
+                                                                                ct.cant
+                                                                            )
+                                                                        }}>
                                                                         <FontAwesomeIcon icon={faPlus} className='h-5 w-5 text-gray-dark' aria-hidden='true' />
                                                                     </button>
                                                                 </div>

@@ -11,6 +11,11 @@ const useFetchCustom = (url) => {
             const response = await fetch(`${PROD}productos?${query}&populate=*&pagination[page]=1&pagination[pageSize]=9`)
             const data = await response.json()
             await saveProduct(data.data);
+        } else {
+            setSearching(true);
+            const response = await fetch(`${PROD}productos?populate=*&pagination[page]=1&pagination[pageSize]=9`)
+            const data = await response.json()
+            await saveProduct(data.data);
         }
     }
     const getData = async () => {

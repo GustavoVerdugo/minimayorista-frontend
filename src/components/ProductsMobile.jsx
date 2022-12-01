@@ -1,21 +1,67 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useContext, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faBullhorn, faCartPlus, faMinus, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faSquarePlus, faSquareMinus } from "@fortawesome/free-regular-svg-icons"
 import Pagination from './Pagination';
 import { DataContext } from '../context/DataContext';
+import useFetchCustom from '../helpers/useFetchCustom';
+const qs = require('qs');
 
 const ProductsMobile = () => {
-    const { productos, saveProduct, loading } = useContext(DataContext);
+    const { productos, loading, filters, saveQuery, saveCart } = useContext(DataContext);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenDetail, setIsOpenDetail] = useState(false);
     const [addCart, setAddCart] = useState(false);
     const [detail, setDetail] = useState([]);
+    const [cant, setCant] = useState(1);
 
-    function passVehiculoDetail(data) {
-        setDetail([data])
+    const addCant = () => {
+        setCant(cant + 1)
     }
+
+    const delCant = () => {
+        if (cant > 1) {
+            setCant(cant - 1)
+        }
+    }
+
+    const purgCant = () => {
+        setCant(1);
+    }
+
+    const { searching } = useFetchCustom();
+    useEffect(() => {
+        let query = null;
+        if (filters[0]?.marcas.length > 0) {
+            query = qs.stringify({
+                filters: {
+                    marca: {
+                        id: {
+                            $in: filters[0].marcas
+                        }
+                    },
+                },
+            }, {
+                encodeValuesOnly: true,
+            });
+            saveQuery(query);
+        } else if (filters[0]?.categorias.length > 0) {
+            query = qs.stringify({
+                filters: {
+                    categorias: {
+                        id: {
+                            $in: filters[0].categorias
+                        }
+                    },
+                },
+            }, {
+                encodeValuesOnly: true,
+            });
+            saveQuery(query);
+        }
+        console.log(query)
+    }, [filters])
 
     return (
         <>
@@ -99,13 +145,15 @@ const ProductsMobile = () => {
                                                         className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
                                                     />
                                                     <div className='flex flex-row justify-center items-center mt-8'>
-                                                        <div className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'>
+                                                        <button className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'
+                                                            onClick={() => { delCant() }}>
                                                             <FontAwesomeIcon icon={faMinus} className='w-5 h-5' aria-hidden="true" />
-                                                        </div>
-                                                        <span className='mx-4 font-bold text-lg'>1</span>
-                                                        <div className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'>
+                                                        </button>
+                                                        <span className='mx-4 font-bold text-lg'>{cant}</span>
+                                                        <button className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'
+                                                            onClick={() => { addCant() }}>
                                                             <FontAwesomeIcon icon={faPlus} className='w-5 h-5' aria-hidden="true" />
-                                                        </div>
+                                                        </button>
                                                     </div>
                                                 </div>
 
@@ -113,14 +161,24 @@ const ProductsMobile = () => {
                                                     <button
                                                         type="button"
                                                         className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                        onClick={() => { setIsOpen(false) }}
+                                                        onClick={() => { setIsOpen(false); purgCant(); }}
                                                     >
                                                         Cancelar
                                                     </button>
                                                     <button
                                                         type="button"
                                                         className="inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong"
-                                                        onClick={() => { setIsOpen(false) }}
+                                                        onClick={() => { 
+                                                            saveCart({
+                                                                id: item.id,
+                                                                name: item.attributes.nombre,
+                                                                price: item.attributes.precio_oferta,
+                                                                img: item.attributes.imagen_principal.data.attributes.url,
+                                                                cant: cant
+                                                            });
+                                                            setIsOpen(false);
+                                                            purgCant();
+                                                        }}
                                                     >
                                                         Aceptar
                                                     </button>
@@ -203,13 +261,15 @@ const ProductsMobile = () => {
                                                             </div>
                                                             :
                                                             <div className='flex flex-row justify-center items-center mt-8'>
-                                                                <div className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'>
+                                                                <button className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'
+                                                                    onClick={() => { delCant() }}>
                                                                     <FontAwesomeIcon icon={faMinus} className='w-5 h-5' aria-hidden="true" />
-                                                                </div>
-                                                                <span className='mx-4 font-bold text-lg'>1</span>
-                                                                <div className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'>
+                                                                </button>
+                                                                <span className='mx-4 font-bold text-lg'>{cant}</span>
+                                                                <button className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'
+                                                                    onClick={() => { addCant() }}>
                                                                     <FontAwesomeIcon icon={faPlus} className='w-5 h-5' aria-hidden="true" />
-                                                                </div>
+                                                                </button>
                                                             </div>
                                                     }
                                                 </div>
@@ -220,14 +280,25 @@ const ProductsMobile = () => {
                                                             <button
                                                                 type="button"
                                                                 className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                                onClick={() => { setAddCart(false); }}
+                                                                onClick={() => { setAddCart(false); purgCant(); }}
                                                             >
                                                                 Cancelar
                                                             </button>
                                                             <button
                                                                 type="button"
                                                                 className="inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong"
-                                                                onClick={() => { setIsOpenDetail(false); setAddCart(false); }}
+                                                                onClick={() => {
+                                                                    saveCart({
+                                                                        id: item.id,
+                                                                        name: item.attributes.nombre,
+                                                                        price: item.attributes.precio_oferta,
+                                                                        img: item.attributes.imagen_principal.data.attributes.url,
+                                                                        cant: cant
+                                                                    });
+                                                                    setIsOpenDetail(false); 
+                                                                    setAddCart(false);
+                                                                    purgCant();
+                                                                }}
                                                             >
                                                                 Aceptar
                                                             </button>

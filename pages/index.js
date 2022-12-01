@@ -6,6 +6,7 @@ import BrandSlider from '../src/components/BrandSlider'
 import Contact from '../src/components/Contact'
 import Footer from '../src/components/Footer'
 import FormSubs from '../src/components/FormSubs'
+import Loader from '../src/components/Loader'
 import Navbar from '../src/components/Navbar'
 import ProductsList from '../src/components/ProductsList'
 import useFetch from '../src/helpers/useFetch'
@@ -27,7 +28,8 @@ export default function Home() {
 
       <>
         {
-          loading ? <h1>cargando</h1>
+          loading ?
+            <Loader />
             :
             <>
               <div>

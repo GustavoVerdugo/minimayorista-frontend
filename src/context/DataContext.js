@@ -9,7 +9,7 @@ const DataProvider = ({ children }) => {
     const [categorias, setCategorias] = useState([]);
     const [marcas, setMarcas] = useState([]);
     const [filters, setFiltros] = useState([]);
-    const [query, setQuery] = useState([]);
+    const [query, setQuery] = useState(null);
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState([]);
 
@@ -54,7 +54,7 @@ const DataProvider = ({ children }) => {
         let arr = [];
         let totalPagar = 0;
         cart.map((prod) => {
-           totalPagar += (parseInt(prod.price) * parseInt(prod.cant))
+            totalPagar += (parseInt(prod.price) * parseInt(prod.cant))
         });
         arr.push({
             productos: products,
@@ -63,10 +63,21 @@ const DataProvider = ({ children }) => {
         setCarrito(arr);
     }
 
+    const editCantidad = (prod) => {
+        let arr = cart;
+        let tmp = cart.find(x => x.id === prod.id);
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].id === tmp.id) {
+                arr.splice(i, 1)
+            }
+        }
+        setCart(arr => [...arr, prod]);
+    }
+
     const ret = {
         loading, setLoading, productos, saveProduct, categorias, saveCategories, marcas,
         saveMarcas, saveFiltros, filters, saveQuery, query, searching, setSearching, saveCart,
-        cart, saveTotal, total
+        cart, saveTotal, total, editCantidad
     }
     return <DataContext.Provider value={ret}>{children}</DataContext.Provider>
 }

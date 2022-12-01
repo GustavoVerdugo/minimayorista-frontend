@@ -12,14 +12,6 @@ const useFetch = (url) => {
             await saveProduct(data.data);
         }
     }
-    const getProductsByFilters = async () => {
-        if (query != null) {
-            setLoading(true);
-            const response = await fetch(`${PROD}productos?${query}&populate=*&pagination[page]=1&pagination[pageSize]=9`)
-            const data = await response.json()
-            await saveProduct(data.data);
-        }
-    }
     const getCategories = async () => {
         const response = await fetch(`${PROD}categorias?populate=*`)
         const data = await response.json()
@@ -34,7 +26,6 @@ const useFetch = (url) => {
         await getProducts();
         await getCategories();
         await getMarcas();
-        await getProductsByFilters();
         setLoading(false);
     }
     useEffect(() => {

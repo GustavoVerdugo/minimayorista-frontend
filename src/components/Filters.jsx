@@ -84,6 +84,7 @@ export default function Filters() {
     const filter = () => {
         saveFiltros([filtros]);
         setMobileFiltersOpen(false);
+        console.log(filtros)
         /* 
         setPage(1);
          */

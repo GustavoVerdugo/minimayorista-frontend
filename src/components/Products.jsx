@@ -31,9 +31,9 @@ const Products = () => {
         setCant(1);
     }
 
-    const { searching } = useFetchCustom();
+    //const { searching } = useFetchCustom();
     useEffect(() => {
-        let query = null;
+        let query = [];
         if (filters[0]?.marcas.length > 0) {
             query = qs.stringify({
                 filters: {
@@ -60,6 +60,26 @@ const Products = () => {
                 encodeValuesOnly: true,
             });
             saveQuery(query);
+        } else if (filters[0]?.marcas.length > 0 && filters[0]?.categorias.length > 0) {
+            query = qs.stringify({
+                filters: {
+                    marca: {
+                        id: {
+                            $in: filters[0].marcas
+                        }
+                    },
+                    categorias: {
+                        id: {
+                            $in: filters[0].categorias
+                        }
+                    },
+                },
+            }, {
+                encodeValuesOnly: true,
+            });
+            saveQuery(query);
+        } else {
+            saveQuery(query);
         }
     }, [filters])
 
@@ -74,12 +94,15 @@ const Products = () => {
 
                         productos.map((items) => (
                             <div className="w-48 h-fit bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl" key={items.id}>
-                                <button onClick={() => { setDetail([items]); setIsOpenDetail(!isOpenDetail) }}
-                                    disabled={!items.attributes.status_stock}>
+                                <div className='flex flex-col justify-center items-start absolute'>
                                     {!items.attributes.status_stock ?
-                                        <span className='relative -left-12 top-0 bg-red-500 text-white p-2 rounded-sm text-lg'>Agotado</span>
+                                        <span className='bg-red-500 text-white p-2 rounded-sm text-lg'>Agotado</span>
                                         : false}
-                                    <img src={'http://localhost:1337' + items.attributes.imagen_principal.data.attributes.url} alt="Product" className="h-40 w-44 object-cover rounded-t-xl" />
+                                </div>
+                                <button onClick={() => { setDetail([items]); setIsOpenDetail(!isOpenDetail) }}
+                                    disabled={!items.attributes.status_stock}
+                                    className="flex flex-col justify-center items-center">
+                                    <img src={'https://minimayorista-back.onrender.com' + items.attributes.imagen_principal.data.attributes.url} alt="Product" className="h-40 w-44 object-cover rounded-t-xl" />
                                     <div className="px-4 pt-3 w-44">
                                         <span className="text-gray-400 mr-3 uppercase text-xs">{items.attributes.marca.data.attributes.nombre}</span>
                                         <p className="text-base font-bold text-black truncate block capitalize">{items.attributes.nombre}</p>
@@ -265,13 +288,15 @@ const Products = () => {
                                                             </div>
                                                             :
                                                             <div className='flex flex-row justify-center items-center mt-8'>
-                                                                <div className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'>
+                                                                <button className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'
+                                                                    onClick={() => { delCant(); }}>
                                                                     <FontAwesomeIcon icon={faMinus} className='w-5 h-5' aria-hidden="true" />
-                                                                </div>
-                                                                <span className='mx-4 font-bold text-lg'>1</span>
-                                                                <div className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'>
+                                                                </button>
+                                                                <span className='mx-4 font-bold text-lg'>{cant}</span>
+                                                                <button className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'
+                                                                    onClick={() => { addCant(); }}>
                                                                     <FontAwesomeIcon icon={faPlus} className='w-5 h-5' aria-hidden="true" />
-                                                                </div>
+                                                                </button>
                                                             </div>
                                                     }
                                                 </div>
@@ -282,14 +307,25 @@ const Products = () => {
                                                             <button
                                                                 type="button"
                                                                 className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                                onClick={() => { setAddCart(false); }}
+                                                                onClick={() => { setAddCart(false); purgCant(); }}
                                                             >
                                                                 Cancelar
                                                             </button>
                                                             <button
                                                                 type="button"
                                                                 className="inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong"
-                                                                onClick={() => { setIsOpenDetail(false); setAddCart(false); }}
+                                                                onClick={() => {
+                                                                    saveCart({
+                                                                        id: item.id,
+                                                                        name: item.attributes.nombre,
+                                                                        price: item.attributes.precio_oferta,
+                                                                        img: item.attributes.imagen_principal.data.attributes.url,
+                                                                        cant: cant
+                                                                    });
+                                                                    setIsOpenDetail(false);
+                                                                    setAddCart(false);
+                                                                    purgCant();
+                                                                }}
                                                             >
                                                                 Aceptar
                                                             </button>
