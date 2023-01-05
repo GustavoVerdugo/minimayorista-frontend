@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { PROD } from "../config";
 import { DataContext } from "../context/DataContext";
 
-export async function usecallProductsAgain() {
+export async function useCallProductsAgain() {
     const { setSearching, searching, saveProduct, saveCategories, saveMarcas, query } = useContext(DataContext);
 
     setSearching(true)
@@ -12,7 +12,7 @@ export async function usecallProductsAgain() {
     setSearching(false);
 }
 
-export async function usegetProductsFilters(qu) {
+export async function useGetProductsFilters(qu) {
     const { setSearching, searching, saveProduct, saveCategories, saveMarcas, query } = useContext(DataContext);
 
     setSearching(true);
@@ -22,6 +22,6 @@ export async function usegetProductsFilters(qu) {
     setSearching(false);
 }
 
-export async function saveSubs(sub) {
+export async function useSaveSubs(sub) {
     
 }
