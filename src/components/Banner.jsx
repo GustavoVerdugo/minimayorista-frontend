@@ -13,7 +13,7 @@ const Banner = () => {
                     </a>
                 </div>
                 <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-                    <img src="https://minimayorista.cl/wp-content/uploads/2022/09/colacao-pillows-720grs-minimayorista-600x599.jpg.webp" alt="mockup" />
+                    <img src="https://minimayorista.cl/assets/colacao-pillows-720grs-minimayorista-600x599.jpg.webp" alt="mockup" />
                 </div>
             </div>
         </section>

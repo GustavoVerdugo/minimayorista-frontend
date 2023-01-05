@@ -34,22 +34,22 @@ const BrandSlider = () => {
             >
                 <SwiperSlide>
                     <div className='flex flex-col items-center justify-center w-full h-full rounded-md'>
-                        <img className='w-32' src='https://minimayorista.cl/wp-content/uploads/2020/07/coca-cola.png.webp' />
+                        <img className='w-32' src='https://minimayorista.cl/assets/coca-cola.png.webp' />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className='flex flex-col items-center justify-center w-full h-full rounded-md'>
-                        <img className='w-32' src='https://minimayorista.cl/wp-content/uploads/2020/07/minuto-verde.png.webp' />
+                        <img className='w-32' src='https://minimayorista.cl/assets/minuto-verde.png.webp' />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className='flex flex-col items-center justify-center w-full h-full rounded-md'>
-                        <img className='w-32' src='https://minimayorista.cl/wp-content/uploads/2020/07/soprole.png.webp' />
+                        <img className='w-32' src='https://minimayorista.cl/assets/soprole.png.webp' />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className='flex flex-col items-center justify-center w-full h-full rounded-md'>
-                        <img className='w-32' src='https://minimayorista.cl/wp-content/uploads/2020/07/super-cerdo.png.webp' />
+                        <img className='w-32' src='https://minimayorista.cl/assets/super-cerdo.png.webp' />
                     </div>
                 </SwiperSlide>
             </Swiper>
