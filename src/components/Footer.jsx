@@ -4,7 +4,7 @@ const Footer = () => {
             <div className="md:flex md:justify-between">
                 <div className="mb-6 md:mb-0">
                     <a href="https://minimayorista.cl/" rel="noreferrer" className="flex items-center">
-                        <img src="https://minimayorista.cl/wp-content/uploads/2019/07/Logo-Minimayorista-chico.png.webp" className="h-14" alt="Minimayorista Logo" />
+                        <img src="https://minimayorista.cl/assets/Logo-Minimayorista-chico.png.webp" className="h-14" alt="Minimayorista Logo" />
                     </a>
                 </div>
                 <div className="flex flex-col md:flex-row">
