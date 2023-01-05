@@ -104,7 +104,12 @@ const Products = () => {
                                     className="flex flex-col justify-center items-center">
                                     <img src={'https://minimayorista-back.onrender.com' + items.attributes.imagen_principal.data.attributes.url} alt="Product" className="h-40 w-44 object-cover rounded-t-xl" />
                                     <div className="px-4 pt-3 w-44">
-                                        <span className="text-gray-400 mr-3 uppercase text-xs">{items.attributes.marca.data.attributes.nombre}</span>
+                                        {
+                                            items.attributes.marca.data === null ?
+                                                <span className="text-gray-400 mr-3 uppercase text-xs">GENERICO</span>
+                                                :
+                                                <span className="text-gray-400 mr-3 uppercase text-xs">{items.attributes.marca.data.attributes.nombre}</span>
+                                        }
                                         <p className="text-base font-bold text-black truncate block capitalize">{items.attributes.nombre}</p>
                                     </div>
                                 </button>
@@ -255,7 +260,12 @@ const Products = () => {
                                                     className="flex flex-col justify-center items-center text-lg font-semibold leading-6 "
                                                 >
                                                     <span className='text-gray-900'>{item.attributes.nombre}</span>
-                                                    <span className='text-gray-600'>{item.attributes.marca.data.attributes.nombre}</span>
+                                                    {
+                                                        item.attributes.marca.data === null ?
+                                                            <span className='text-gray-600'>GENERICO</span>
+                                                            :
+                                                            <span className='text-gray-600'>{item.attributes.marca.data.attributes.nombre}</span>
+                                                    }
                                                 </Dialog.Title>
                                                 <div className="mt-8">
                                                     {/* <img
