@@ -73,9 +73,9 @@ const ProductsMobile = () => {
                                 <button className='flex flex-row w-full h-fit bg-white rounded-md'
                                     onClick={() => { setDetail([items]); setIsOpenDetail(!isOpenDetail) }}
                                     disabled={!items.attributes.status_stock}>
-                                    {/* <div className='w-16 h-16'>
-                                        <img src={'http://localhost:1337' + items.attributes.imagen_principal.data.attributes.url} />
-                                    </div> */}
+                                    <div className='w-16 h-16'>
+                                        <img src={items.attributes.imagen_principal.data.attributes.url} />
+                                    </div>
                                     <div className='flex-shrink w-full justify-center items-start'>
                                         <span className='text-gray-800 mr-2 uppercase text-xs'>{items.attributes.nombre}</span>
                                         <div className='flex-row justify-start items-start'>
@@ -140,10 +140,10 @@ const ProductsMobile = () => {
                                                     ¿ Añadir &quot;{item.attributes.nombre}&quot; al Carrito ?
                                                 </Dialog.Title>
                                                 <div className="mt-8">
-                                                    {/* <img
-                                                        src={'http://localhost:1337' + item.attributes.imagen_principal.data.attributes.url}
+                                                    <img
+                                                        src={item.attributes.imagen_principal.data.attributes.url}
                                                         className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
-                                                    /> */}
+                                                    />
                                                     <div className='flex flex-row justify-center items-center mt-8'>
                                                         <button className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'
                                                             onClick={() => { delCant() }}>
@@ -231,10 +231,10 @@ const ProductsMobile = () => {
                                                     <span className='text-gray-600'>{item.attributes.marca.data.attributes.nombre}</span>
                                                 </Dialog.Title>
                                                 <div className="mt-8">
-                                                    {/* <img
-                                                        src={'http://localhost:1337' + item.attributes.imagen_principal.data.attributes.url}
+                                                    <img
+                                                        src={item.attributes.imagen_principal.data.attributes.url}
                                                         className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
-                                                    /> */}
+                                                    />
                                                     <div className='flex flex-col justify-center items-center mt-8'>
                                                         <p className="text-lg font-bold text-black cursor-auto my-3">${item.attributes.precio_oferta}</p>
                                                         <del>
