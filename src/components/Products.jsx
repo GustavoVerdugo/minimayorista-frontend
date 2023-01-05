@@ -167,10 +167,10 @@ const Products = () => {
                                                     ¿ Añadir &quot;{item.attributes.nombre}&quot; al Carrito ?
                                                 </Dialog.Title>
                                                 <div className="mt-8">
-                                                    <img
+                                                    {/* <img
                                                         src={'http://localhost:1337' + item.attributes.imagen_principal.data.attributes.url}
                                                         className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
-                                                    />
+                                                    /> */}
                                                     <div className='flex flex-row justify-center items-center mt-8'>
                                                         <button className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'
                                                             onClick={() => { delCant() }}>
@@ -258,10 +258,10 @@ const Products = () => {
                                                     <span className='text-gray-600'>{item.attributes.marca.data.attributes.nombre}</span>
                                                 </Dialog.Title>
                                                 <div className="mt-8">
-                                                    <img
+                                                    {/* <img
                                                         src={'http://localhost:1337' + item.attributes.imagen_principal.data.attributes.url}
                                                         className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
-                                                    />
+                                                    /> */}
                                                     <div className='flex flex-col justify-center items-center mt-8'>
                                                         <p className="text-lg font-bold text-black cursor-auto my-3">${item.attributes.precio_oferta}</p>
                                                         <del>
