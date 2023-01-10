@@ -9,7 +9,7 @@ import useFetchCustom from '../helpers/useFetchCustom';
 const qs = require('qs');
 
 const Products = () => {
-    const { productos, loading, filters, saveQuery, saveCart } = useContext(DataContext);
+    const { productos, loading, filters, saveQuery, saveCart, searching } = useContext(DataContext);
     const aboutRef = useRef();
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenDetail, setIsOpenDetail] = useState(false);
@@ -90,44 +90,48 @@ const Products = () => {
                 {
                     !loading ?
 
+                        !searching ?
 
-
-                        productos.map((items) => (
-                            <div className="w-48 h-fit bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl" key={items.id}>
-                                <div className='flex flex-col justify-center items-start absolute'>
-                                    {!items.attributes.status_stock ?
-                                        <span className='bg-red-500 text-white p-2 rounded-sm text-lg'>Agotado</span>
-                                        : false}
-                                </div>
-                                <button onClick={() => { setDetail([items]); setIsOpenDetail(!isOpenDetail) }}
-                                    disabled={!items.attributes.status_stock}
-                                    className="flex flex-col justify-center items-center">
-                                    <img src={items.attributes.imagen_principal.data.attributes.url} alt="Product" className="h-40 w-44 object-cover rounded-t-xl" />
-                                    <div className="px-4 pt-3 w-44">
-                                        {
-                                            items.attributes.marca.data === null ?
-                                                <span className="text-gray-400 mr-3 uppercase text-xs">GENERICO</span>
-                                                :
-                                                <span className="text-gray-400 mr-3 uppercase text-xs">{items.attributes.marca.data.attributes.nombre}</span>
-                                        }
-                                        <p className="text-base font-bold text-black truncate block capitalize">{items.attributes.nombre}</p>
+                            productos.map((items) => (
+                                <div className="w-48 h-fit bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl" key={items.id}>
+                                    <div className='flex flex-col justify-center items-start absolute'>
+                                        {!items.attributes.status_stock ?
+                                            <span className='bg-red-500 text-white p-2 rounded-sm text-lg'>Agotado</span>
+                                            : false}
                                     </div>
-                                </button>
-                                <div className="px-4 pb-3 w-44">
-                                    <div className="flex flex-row items-center">
-                                        <p className="text-lg font-semibold text-black cursor-auto my-3">${parseInt(items.attributes.precio_oferta).toLocaleString('es-CL')}</p>
-                                        <del>
-                                            <p className="text-sm text-gray-600 cursor-auto ml-2">${parseInt(items.attributes.precio).toLocaleString('es-CL')}</p>
-                                        </del>
-                                        <button className={!items.attributes.status_stock ? `ml-2 bg-gray-200 rounded-md p-2` : `ml-2 bg-blue rounded-md p-2 hover:bg-blue-strong`} disabled={!items.attributes.status_stock}
-                                            onClick={() => { setDetail([items]); setIsOpen(!isOpen) }}>
-                                            <FontAwesomeIcon icon={faCartPlus} className='h-6 w-6 text-white' aria-hidden='true' />
-                                        </button>
+                                    <button onClick={() => { setDetail([items]); setIsOpenDetail(!isOpenDetail) }}
+                                        disabled={!items.attributes.status_stock}
+                                        className="flex flex-col justify-center items-center">
+                                        <img src={items.attributes.imagen_principal.data.attributes.url} alt="Product" className="h-40 w-44 object-cover rounded-t-xl" />
+                                        <div className="px-4 pt-3 w-44">
+                                            {
+                                                items.attributes.marca.data === null ?
+                                                    <span className="text-gray-400 mr-3 uppercase text-xs">GENERICO</span>
+                                                    :
+                                                    <span className="text-gray-400 mr-3 uppercase text-xs">{items.attributes.marca.data.attributes.nombre}</span>
+                                            }
+                                            <p className="text-base font-bold text-black truncate block capitalize">{items.attributes.nombre}</p>
+                                        </div>
+                                    </button>
+                                    <div className="px-4 pb-3 w-44">
+                                        <div className="flex flex-row items-center">
+                                            <p className="text-lg font-semibold text-black cursor-auto my-3">${parseInt(items.attributes.precio_oferta).toLocaleString('es-CL')}</p>
+                                            <del>
+                                                <p className="text-sm text-gray-600 cursor-auto ml-2">${parseInt(items.attributes.precio).toLocaleString('es-CL')}</p>
+                                            </del>
+                                            <button className={!items.attributes.status_stock ? `ml-2 bg-gray-200 rounded-md p-2` : `ml-2 bg-blue rounded-md p-2 hover:bg-blue-strong`} disabled={!items.attributes.status_stock}
+                                                onClick={() => { setDetail([items]); setIsOpen(!isOpen) }}>
+                                                <FontAwesomeIcon icon={faCartPlus} className='h-6 w-6 text-white' aria-hidden='true' />
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
+                            ))
+                            :
+                            <div className='grid h-screen place-items-center col-span-full'>
+                                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                             </div>
-                        ))
                         : null
                 }
             </section >

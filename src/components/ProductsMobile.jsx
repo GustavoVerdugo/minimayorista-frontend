@@ -9,7 +9,7 @@ import useFetchCustom from '../helpers/useFetchCustom';
 const qs = require('qs');
 
 const ProductsMobile = () => {
-    const { productos, loading, filters, saveQuery, saveCart } = useContext(DataContext);
+    const { productos, loading, filters, saveQuery, saveCart, searching } = useContext(DataContext);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenDetail, setIsOpenDetail] = useState(false);
     const [addCart, setAddCart] = useState(false);
@@ -29,8 +29,6 @@ const ProductsMobile = () => {
     const purgCant = () => {
         setCant(1);
     }
-
-    const { searching } = useFetchCustom();
     useEffect(() => {
         let query = null;
         if (filters[0]?.marcas.length > 0) {
@@ -68,34 +66,39 @@ const ProductsMobile = () => {
             <section className='w-full mx-1 flex flex-col'>
                 {
                     !loading ?
-                        productos.map((items) => (
-                            <div className='flex flex-row justify-around w-full h-fit bg-white rounded-md' key={items.id}>
-                                <button className='flex flex-row w-full h-fit bg-white rounded-md'
-                                    onClick={() => { setDetail([items]); setIsOpenDetail(!isOpenDetail) }}
-                                    disabled={!items.attributes.status_stock}>
-                                    <div className='w-16 h-16'>
-                                        <img src={items.attributes.imagen_principal.data.attributes.url} />
-                                    </div>
-                                    <div className='flex-shrink w-full justify-center items-start'>
-                                        <span className='text-gray-800 mr-2 uppercase text-xs'>{items.attributes.nombre}</span>
-                                        <div className='flex-row justify-start items-start'>
-                                            {!items.attributes.status_stock ?
-                                                <span className='text-red-500 p-2 rounded-sm text-xs'>Agotado</span>
-                                                : false}
-                                            <span className='text-gray-800 mr-3 uppercase text-xs line-through'>${parseInt(items.attributes.precio).toLocaleString('es-CL')}</span>
-                                            <span className='text-gray-800 mr-3 uppercase text-sm font-semibold'>${parseInt(items.attributes.precio_oferta).toLocaleString('es-CL')}</span>
+                        !searching ?
+                            productos.map((items) => (
+                                <div className='flex flex-row justify-around w-full h-fit bg-white rounded-md' key={items.id}>
+                                    <button className='flex flex-row w-full h-fit bg-white rounded-md'
+                                        onClick={() => { setDetail([items]); setIsOpenDetail(!isOpenDetail) }}
+                                        disabled={!items.attributes.status_stock}>
+                                        <div className='w-16 h-16'>
+                                            <img src={items.attributes.imagen_principal.data.attributes.url} />
                                         </div>
-                                    </div>
-                                </button>
-                                <div className='justify-center items-end '>
-                                    <button className={!items.attributes.status_stock ? `m-2 flex-row justify-end items-center bg-gray-200 p-2 rounded-2xl` :
-                                        `m-2 flex-row justify-end items-center bg-blue p-2 rounded-2xl`} disabled={!items.attributes.status_stock}
-                                        onClick={() => { setDetail([items]); setIsOpen(!isOpen) }}>
-                                        <FontAwesomeIcon icon={faCartPlus} className='h-6 w-6 text-white' aria-hidden='true' />
+                                        <div className='flex-shrink w-full justify-center items-start'>
+                                            <span className='text-gray-800 mr-2 uppercase text-xs'>{items.attributes.nombre}</span>
+                                            <div className='flex-row justify-start items-start'>
+                                                {!items.attributes.status_stock ?
+                                                    <span className='text-red-500 p-2 rounded-sm text-xs'>Agotado</span>
+                                                    : false}
+                                                <span className='text-gray-800 mr-3 uppercase text-xs line-through'>${parseInt(items.attributes.precio).toLocaleString('es-CL')}</span>
+                                                <span className='text-gray-800 mr-3 uppercase text-sm font-semibold'>${parseInt(items.attributes.precio_oferta).toLocaleString('es-CL')}</span>
+                                            </div>
+                                        </div>
                                     </button>
+                                    <div className='justify-center items-end '>
+                                        <button className={!items.attributes.status_stock ? `m-2 flex-row justify-end items-center bg-gray-200 p-2 rounded-2xl` :
+                                            `m-2 flex-row justify-end items-center bg-blue p-2 rounded-2xl`} disabled={!items.attributes.status_stock}
+                                            onClick={() => { setDetail([items]); setIsOpen(!isOpen) }}>
+                                            <FontAwesomeIcon icon={faCartPlus} className='h-6 w-6 text-white' aria-hidden='true' />
+                                        </button>
+                                    </div>
                                 </div>
+                            ))
+                            :
+                            <div className='grid h-screen place-items-center col-span-full'>
+                                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                             </div>
-                        ))
                         : null
                 }
             </section>
@@ -168,7 +171,7 @@ const ProductsMobile = () => {
                                                     <button
                                                         type="button"
                                                         className="inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong"
-                                                        onClick={() => { 
+                                                        onClick={() => {
                                                             saveCart({
                                                                 id: item.id,
                                                                 name: item.attributes.nombre,
@@ -295,7 +298,7 @@ const ProductsMobile = () => {
                                                                         img: item.attributes.imagen_principal.data.attributes.url,
                                                                         cant: cant
                                                                     });
-                                                                    setIsOpenDetail(false); 
+                                                                    setIsOpenDetail(false);
                                                                     setAddCart(false);
                                                                     purgCant();
                                                                 }}

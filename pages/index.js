@@ -21,8 +21,9 @@ export default function Home() {
         <meta name="description" content="Minimayorista | Tu despensa al costo" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet" />
+
       </Head>
 
 
@@ -34,7 +35,7 @@ export default function Home() {
             <>
               <div>
                 <>
-                  <div className='sticky top-0 z-50'>
+                  <div className='top-0 z-50'>
                     <Navbar />
                   </div>
                   <main className='flex flex-col justify-center relative'>

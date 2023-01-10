@@ -57,9 +57,6 @@ const Navbar = () => {
                                     {/* <Link href="#projects"><li className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                                     <a href="#">Mejores ofertas</a>
                                 </li></Link> */}
-                                    <Link href="#contact"><li className="text-white hover:bg-orange-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                                        <a href="#">Contactos</a>
-                                    </li></Link>
                                 </ul>
                             </div>
                         </div>
@@ -113,7 +110,7 @@ const Navbar = () => {
                                             {
                                                 cart ?
                                                     cart.map((ct) => (
-                                                        <div className='flex flex-row justify-around w-full h-fit bg-white rounded-md' key={ct.id}>
+                                                        <div className='flex flex-row justify-evenly w-full h-fit bg-white rounded-md' key={ct.id}>
                                                             <div className='w-20 h-20'>
                                                                 <img src={ct.img} />
                                                             </div>

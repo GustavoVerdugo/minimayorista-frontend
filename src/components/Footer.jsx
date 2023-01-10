@@ -26,7 +26,7 @@ const Footer = () => {
                                 <span className="text-base font-semibold">+56 9 2038 7991</span>
                             </li>
                             <li>
-                                <span className="text-base font-semibold">contacto@minimayorista.cl</span>
+                                <span className="text-base font-semibold">hola@minimayorista.cl</span>
                             </li>
                         </ul>
                     </div>

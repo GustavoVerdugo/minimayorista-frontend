@@ -3,13 +3,14 @@ import { LOCAL, PROD } from '../config'
 import { DataContext } from '../context/DataContext'
 
 const useFetch = (url) => {
-    const { loading, setLoading, saveProduct, saveCategories, saveMarcas, query } = useContext(DataContext);
+    const { loading, setLoading, saveProduct, saveCategories, saveMarcas, query, savePagination } = useContext(DataContext);
 
     const getProducts = async () => {
         if (query == null) {
-            const response = await fetch(`${PROD}productos?populate=*`)
+            const response = await fetch(`${PROD}productos?populate=*&pagination[page]=1&pagination[pageSize]=15`)
             const data = await response.json()
             await saveProduct(data.data);
+            await savePagination(data.meta.pagination.pageCount)
         }
     }
     const getCategories = async () => {

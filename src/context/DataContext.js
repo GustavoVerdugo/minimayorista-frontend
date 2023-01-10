@@ -12,9 +12,15 @@ const DataProvider = ({ children }) => {
     const [query, setQuery] = useState(null);
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState([]);
+    const [pagination, setPagination] = useState([]);
+    const [page, setPage] = useState(1);
 
     const saveProduct = (prod) => {
         setProductos(prod);
+    }
+
+    const savePagination = (pag) => {
+        setPagination(pag);
     }
 
     const saveCategories = (categ) => {
@@ -77,7 +83,7 @@ const DataProvider = ({ children }) => {
     const ret = {
         loading, setLoading, productos, saveProduct, categorias, saveCategories, marcas,
         saveMarcas, saveFiltros, filters, saveQuery, query, searching, setSearching, saveCart,
-        cart, saveTotal, total, editCantidad
+        cart, saveTotal, total, editCantidad, savePagination, pagination, page, setPage
     }
     return <DataContext.Provider value={ret}>{children}</DataContext.Provider>
 }
