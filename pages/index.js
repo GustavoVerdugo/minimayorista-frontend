@@ -43,7 +43,7 @@ export default function Home() {
                     <Banner />
                     <BrandSlider />
                     <ProductsList />
-                    <Contact />
+                    {/* <Contact /> */}
                   </main>
                 </>
               </div>

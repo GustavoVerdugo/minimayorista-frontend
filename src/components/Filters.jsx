@@ -1,10 +1,12 @@
-import { Fragment, useContext, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import Products from './Products'
 import ProductsMobile from './ProductsMobile'
 import { DataContext } from '../context/DataContext'
+import { PROD } from "../config";
+const qs = require('qs');
 
 const sortOptions = [
     { name: 'Most Popular', href: '#', current: true },
@@ -51,7 +53,7 @@ function classNames(...classes) {
 }
 
 export default function Filters() {
-    const { loading, categorias, marcas, saveFiltros, filters } = useContext(DataContext);
+    const { loading, categorias, marcas, saveFiltros, setSearching, saveProduct,savePagination, pagination  } = useContext(DataContext);
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
     let initialValues = {
@@ -59,6 +61,7 @@ export default function Filters() {
         marcas: '',
         page: 0
     }
+    let query = null;
     const [filtros, setFiltros] = useState(initialValues);
 
     const handleCheckedCategoria = e => {
@@ -81,13 +84,75 @@ export default function Filters() {
         })
         setFiltros({ ...filtros, 'marcas': arr })
     }
+    const getProductsByFilters = async () => {
+        console.log(query)
+        if (query != null) {
+            setSearching(true);
+            const response = await fetch(`${PROD}productos?${query}&populate=*&pagination[page]=1&pagination[pageSize]=15`)
+            const data = await response.json()
+            await saveProduct(data.data);
+            await savePagination(data.meta.pagination.pageCount)
+        } else {
+            setSearching(true);
+            const response = await fetch(`${PROD}productos?populate=*&pagination[page]=1&pagination[pageSize]=15`)
+            const data = await response.json()
+            await savePagination(data.meta.pagination.pageCount)
+        }
+    }
+    const getData = async () => {
+        await getProductsByFilters();
+        setSearching(false);
+    }
     const filter = () => {
         saveFiltros([filtros]);
+        let filters = [filtros];
+        if (filters[0]?.marcas.length > 0) {
+            query = qs.stringify({
+                filters: {
+                    marca: {
+                        id: {
+                            $in: filters[0].marcas
+                        }
+                    },
+                },
+            }, {
+                encodeValuesOnly: true,
+            });
+        } else if (filters[0]?.categorias.length > 0) {
+            query = qs.stringify({
+                filters: {
+                    categorias: {
+                        id: {
+                            $in: filters[0].categorias
+                        }
+                    },
+                },
+            }, {
+                encodeValuesOnly: true,
+            });
+        } else if (filters[0]?.marcas.length > 0 && filters[0]?.categorias.length > 0) {
+            query = qs.stringify({
+                filters: {
+                    marca: {
+                        id: {
+                            $in: filters[0].marcas
+                        }
+                    },
+                    categorias: {
+                        id: {
+                            $in: filters[0].categorias
+                        }
+                    },
+                },
+            }, {
+                encodeValuesOnly: true,
+            });
+        } else {
+            query = null
+        }
         setMobileFiltersOpen(false);
         console.log(filtros)
-        /* 
-        setPage(1);
-         */
+        getData()
     }
 
     return (

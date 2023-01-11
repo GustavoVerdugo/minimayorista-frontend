@@ -31,57 +31,6 @@ const Products = () => {
         setCant(1);
     }
 
-    //const { searching } = useFetchCustom();
-    useEffect(() => {
-        let query = [];
-        if (filters[0]?.marcas.length > 0) {
-            query = qs.stringify({
-                filters: {
-                    marca: {
-                        id: {
-                            $in: filters[0].marcas
-                        }
-                    },
-                },
-            }, {
-                encodeValuesOnly: true,
-            });
-            saveQuery(query);
-        } else if (filters[0]?.categorias.length > 0) {
-            query = qs.stringify({
-                filters: {
-                    categorias: {
-                        id: {
-                            $in: filters[0].categorias
-                        }
-                    },
-                },
-            }, {
-                encodeValuesOnly: true,
-            });
-            saveQuery(query);
-        } else if (filters[0]?.marcas.length > 0 && filters[0]?.categorias.length > 0) {
-            query = qs.stringify({
-                filters: {
-                    marca: {
-                        id: {
-                            $in: filters[0].marcas
-                        }
-                    },
-                    categorias: {
-                        id: {
-                            $in: filters[0].categorias
-                        }
-                    },
-                },
-            }, {
-                encodeValuesOnly: true,
-            });
-            saveQuery(query);
-        } else {
-            saveQuery(query);
-        }
-    }, [filters])
 
     return (
         <>
@@ -277,9 +226,9 @@ const Products = () => {
                                                         className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
                                                     />
                                                     <div className='flex flex-col justify-center items-center mt-8'>
-                                                        <p className="text-lg font-bold text-black cursor-auto my-3">${item.attributes.precio_oferta}</p>
+                                                        <p className="text-lg font-bold text-black cursor-auto my-3">${parseInt(item.attributes.precio_oferta).toLocaleString('es-CL')}</p>
                                                         <del>
-                                                            <p className="text-sm text-gray-600 cursor-auto">${item.attributes.precio}</p>
+                                                            <p className="text-sm text-gray-600 cursor-auto">${parseInt(item.attributes.precio).toLocaleString('es-CL')}</p>
                                                         </del>
                                                     </div>
                                                     {

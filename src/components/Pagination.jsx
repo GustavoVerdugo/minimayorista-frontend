@@ -3,20 +3,22 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { DataContext } from '../context/DataContext';
 import { PROD } from "../config";
 const Pagination = () => {
-    const { loading, savePagination, pagination, page, setPage, query, saveProduct, setSearching } = useContext(DataContext);
+    const { loading, savePagination, pagination, query, page, setPage, saveProduct, setSearching } = useContext(DataContext);
     async function useCallProductsPagination(p) {
         setSearching(true)
         await setPage(p)
-        if (p > 0) {
+        if (p > 0 && p < pagination) {
             if (query != null) {
                 const response = await fetch(`${PROD}productos?${query}&populate=*&pagination[page]=${p}&pagination[pageSize]=15`)
                 const data = await response.json()
                 await saveProduct(data.data);
+                await savePagination(data.meta.pagination.pageCount)
                 setSearching(false);
             } else {
                 const response = await fetch(`${PROD}productos?populate=*&pagination[page]=${p}&pagination[pageSize]=15`)
                 const data = await response.json()
                 await saveProduct(data.data);
+                await savePagination(data.meta.pagination.pageCount)
                 setSearching(false);
             }
 
@@ -31,7 +33,6 @@ const Pagination = () => {
                             <div className="flex-1 flex justify-between sm:hidden">
                                 <button
                                     disabled={page === 1 ? true : false}
-                                    href="#"
                                     className="relative inline-flex items-center px-4 py-2 border border-gray-200 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:text-gray bg-gray"
                                     onClick={() => {
                                         useCallProductsPagination(page - 1)
@@ -40,7 +41,7 @@ const Pagination = () => {
                                     Anterior
                                 </button>
                                 <button
-                                    href="#"
+                                    disabled={page === pagination ? true : false}
                                     className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-200 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
                                     onClick={() => {
                                         useCallProductsPagination(page + 1)
@@ -63,7 +64,7 @@ const Pagination = () => {
                                         </button>
                                         {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
                                         <button
-                                            disabled={false}
+                                            disabled={page === pagination ? true : false}
                                             className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 disabled:text-gray bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
                                             onClick={() => { useCallProductsPagination(page + 1) }}
                                         >

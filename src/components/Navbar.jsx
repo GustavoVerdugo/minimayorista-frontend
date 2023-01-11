@@ -110,7 +110,7 @@ const Navbar = () => {
                                             {
                                                 cart ?
                                                     cart.map((ct) => (
-                                                        <div className='flex flex-row justify-evenly w-full h-fit bg-white rounded-md' key={ct.id}>
+                                                        <div className='flex flex-row justify-between w-full h-fit bg-white rounded-md' key={ct.id}>
                                                             <div className='w-20 h-20'>
                                                                 <img src={ct.img} />
                                                             </div>
