@@ -172,7 +172,7 @@ const Navbar = () => {
                                             <button
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong"
-                                                onClick={() => { }}
+                                                onClick={() => { setModalVisible(true); setModalCartVisible(false); }}
                                             >
                                                 Realizar Pedido
                                             </button>
@@ -210,12 +210,12 @@ const Navbar = () => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
                                         className="flex flex-col justify-center items-center text-lg font-semibold leading-6 "
                                     >
-                                        <span className='text-gray-900'>{'hola'}</span>
+                                        <span className='text-gray-900'>Tu Pedido</span>
                                     </Dialog.Title>
                                     <div className="mt-8">
                                         <img
