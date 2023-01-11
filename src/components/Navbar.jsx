@@ -9,7 +9,7 @@ const Navbar = () => {
     const [navbar, setNavbar] = useState(false);
     const [modalCartVisible, setModalCartVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
-    const { cart, editCantidad} = useContext(DataContext);
+    const { cart, editCantidad } = useContext(DataContext);
     const sumCant = (prod, cant) => {
         editCantidad(prod)
     }
@@ -18,6 +18,20 @@ const Navbar = () => {
             editCantidad(prod)
         }
     }
+    const FORM_STEPS = [
+        {
+            label: `Ingresa tus datos`,
+            state: true
+        },
+        {
+            label: `Preferences`,
+            state: false
+        },
+        {
+            label: `Complete`,
+            state: false
+        },
+    ];
     return (
         <>
             <nav className="w-screen bg-blue">
@@ -186,7 +200,7 @@ const Navbar = () => {
             </Transition>
 
             <Transition appear show={modalVisible} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => { setModalVisible(false); setAddCart(false); }}>
+                <Dialog as="div" className="relative z-10" onClose={() => { setModalVisible(false); }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -201,36 +215,41 @@ const Navbar = () => {
 
                     <div className="fixed inset-0 overflow-y-auto">
                         <div className="flex min-h-full items-center justify-center p-4 text-center">
-                            <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0 scale-95"
-                                enterTo="opacity-100 scale-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100 scale-100"
-                                leaveTo="opacity-0 scale-95"
-                            >
-                                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <Dialog.Title
-                                        as="h3"
-                                        className="flex flex-col justify-center items-center text-lg font-semibold leading-6 "
+                            {
+                                FORM_STEPS.map((forms) => (
+                                    <Transition.Child
+                                        as={Fragment}
+                                        enter="ease-out duration-300"
+                                        enterFrom="opacity-0 scale-95"
+                                        enterTo="opacity-100 scale-100"
+                                        leave="ease-in duration-200"
+                                        leaveFrom="opacity-100 scale-100"
+                                        leaveTo="opacity-0 scale-95"
                                     >
-                                        <span className='text-gray-900'>Tu Pedido</span>
-                                    </Dialog.Title>
-                                    <div className="mt-8">
-                                        <img
-                                            src={''}
-                                            className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
-                                        />
-                                        <div className='flex flex-col justify-center items-center mt-8'>
-                                            <p className="text-lg font-bold text-black cursor-auto my-3">${10}</p>
-                                            <del>
-                                                <p className="text-sm text-gray-600 cursor-auto">${10}</p>
-                                            </del>
-                                        </div>
-                                    </div>
-                                </Dialog.Panel>
-                            </Transition.Child>
+
+                                        <Dialog.Panel hidden={!forms.state} className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                            <Dialog.Title
+                                                as="h3"
+                                                className="flex flex-col justify-center items-center text-lg font-semibold leading-6 "
+                                            >
+                                                <span className='text-gray-900'>{forms.label}</span>
+                                            </Dialog.Title>
+                                            <div className="mt-8">
+                                                <img
+                                                    src={''}
+                                                    className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
+                                                />
+                                                <div className='flex flex-col justify-center items-center mt-8'>
+                                                    <p className="text-lg font-bold text-black cursor-auto my-3">${10}</p>
+                                                    <del>
+                                                        <p className="text-sm text-gray-600 cursor-auto">${10}</p>
+                                                    </del>
+                                                </div>
+                                            </div>
+                                        </Dialog.Panel>
+                                    </Transition.Child>
+                                ))
+                            }
                         </div>
                     </div>
                 </Dialog>
