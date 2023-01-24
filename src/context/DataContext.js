@@ -7,6 +7,7 @@ const DataProvider = ({ children }) => {
     const [searching, setSearching] = useState(false);
     const [productos, setProductos] = useState([]);
     const [categorias, setCategorias] = useState([]);
+    const [comunas, setComunas] = useState([]);
     const [marcas, setMarcas] = useState([]);
     const [filters, setFiltros] = useState([]);
     const [query, setQuery] = useState(null);
@@ -14,13 +15,32 @@ const DataProvider = ({ children }) => {
     const [total, setTotal] = useState([]);
     const [pagination, setPagination] = useState([]);
     const [page, setPage] = useState(1);
+    const [tiposPagos, setTiposPagos] = useState([]);
+    const [tiposEnvio, setTiposEnvio] = useState([]);
+    const [confirmate, setConfirmate] = useState([]);
 
     const saveProduct = (prod) => {
         setProductos(prod);
     }
 
+    const saveConfirmate = (cc) => {
+        setConfirmate(cc);
+    }
+
     const savePagination = (pag) => {
         setPagination(pag);
+    }
+
+    const saveComunas = (com) => {
+        setComunas(com);
+    }
+
+    const saveTiposPagos = (tp) => {
+        setTiposPagos(tp);
+    }
+
+    const saveTiposEnvio = (te) => {
+        setTiposEnvio(te);
     }
 
     const saveCategories = (categ) => {
@@ -83,7 +103,8 @@ const DataProvider = ({ children }) => {
     const ret = {
         loading, setLoading, productos, saveProduct, categorias, saveCategories, marcas,
         saveMarcas, saveFiltros, filters, saveQuery, query, searching, setSearching, saveCart,
-        cart, saveTotal, total, editCantidad, savePagination, pagination, page, setPage
+        cart, saveTotal, total, editCantidad, savePagination, pagination, page, setPage, saveComunas,
+        comunas, saveTiposPagos, tiposPagos, saveTiposEnvio, tiposEnvio, saveConfirmate, confirmate
     }
     return <DataContext.Provider value={ret}>{children}</DataContext.Provider>
 }
