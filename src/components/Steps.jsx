@@ -176,7 +176,7 @@ const Steps = ({ content, setModalVisible }) => {
                       content.map((ct) => (
                         <div className='flex flex-row justify-start items-start h-fit bg-white rounded-md' key={ct.id}>
                           <div className='w-20 h-20 mr-4'>
-                            <img src={ct.img} />
+                            <img src={ct.img} alt={ct.img} />
                           </div>
                           <div className='flex-shrink justify-center items-start w-60'>
                             <span className='text-gray-800 mr-2 uppercase text-xs'>{ct.name}</span>
