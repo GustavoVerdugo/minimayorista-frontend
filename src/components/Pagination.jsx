@@ -34,18 +34,14 @@ const Pagination = () => {
                                 <button
                                     disabled={page === 1 ? true : false}
                                     className="relative inline-flex items-center px-4 py-2 border border-gray-200 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:text-gray bg-gray"
-                                    onClick={() => {
-                                        useCallProductsPagination(page - 1)
-                                    }}
+                                    onClick={useCallProductsPagination(page - 1)}
                                 >
                                     Anterior
                                 </button>
                                 <button
                                     disabled={page === pagination ? true : false}
                                     className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-200 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
-                                    onClick={() => {
-                                        useCallProductsPagination(page + 1)
-                                    }}
+                                    onClick={useCallProductsPagination(page + 1)}
                                 >
                                     Siguiente
                                 </button>
@@ -55,7 +51,7 @@ const Pagination = () => {
                                     <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                                         <button
                                             disabled={page === 1 ? true : false}
-                                            onClick={() => { useCallProductsPagination(page - 1) }}
+                                            onClick={useCallProductsPagination(page - 1)}
                                             className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 disabled:text-gray bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
                                         >
                                             <span className="sr-only">Anterior</span>
@@ -66,7 +62,7 @@ const Pagination = () => {
                                         <button
                                             disabled={page === pagination ? true : false}
                                             className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 disabled:text-gray bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
-                                            onClick={() => { useCallProductsPagination(page + 1) }}
+                                            onClick={useCallProductsPagination(page + 1)}
                                         >
                                             <span className="sr-only">Siguiente</span>
                                             <span>Siguiente</span>
