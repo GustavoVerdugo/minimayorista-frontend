@@ -4,7 +4,6 @@ import { Dialog, Disclosure, Menu, Transition, Listbox } from '@headlessui/react
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faCartShopping, faMinus, faPlus, faTrashCan, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { DataContext } from "../context/DataContext";
-import PersonalData from "./Checkout/personalData";
 import { Formik } from 'formik';
 import Dropdown from "./Dropdown";
 import Steps from "./Steps";
