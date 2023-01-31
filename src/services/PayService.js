@@ -1,11 +1,11 @@
-import PaymentLibrary from "../helpers/PaymentLibrary";
+import FlowApi from "flowcl-node-api-client";
 
 export async function createPay() {
     const config = {
         "apiKey": "1F009A44-3301-41A9-A1C4-384L159BCBD6",
         "secretKey": "29162b1d72353edcdc0028dcb81fc778bf475b02",
         "apiURL": "https://sandbox.flow.cl/api",
-        "baseURL": "http://localhost:3000"
+        "baseURL": "https://minimayorista-web.onrender.com"
     }
     const optional = {
         "rut": "9999999-9",
@@ -27,7 +27,7 @@ export async function createPay() {
 
     try {
         // Instancia la clase FlowApi
-        const payment = new PaymentLibrary(config);
+        const payment = new FlowApi(config);
         // Ejecuta el servicio
         let response = await payment.send(serviceName, params, "POST");
         //Prepara url para redireccionar el browser del pagador
@@ -45,7 +45,7 @@ export async function confirmPay() {
             token: localStorage.getItem('tkn')
         };
         let serviceName = "payment/getStatus";
-        const payment = new PaymentLibrary(config);
+        const payment = new FlowApi(config);
         let response = await payment.send(serviceName, params, "GET");
         //Actualiza los datos en su sistema
         console.log(response);
@@ -61,7 +61,7 @@ export async function statusPay() {
             token: localStorage.getItem('tkn')
         };
         let serviceName = "payment/getStatus";
-        const payment = new PaymentLibrary(config);
+        const payment = new FlowApi(config);
         let response = await payment.send(serviceName, params, "GET");
         //Actualiza los datos en su sistema
         console.log(response);
