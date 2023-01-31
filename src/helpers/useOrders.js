@@ -32,5 +32,9 @@ export function createOrder(data) {
         }
 
     }
-    sendOrder(payload);
+    let payDetail = {
+        amount: data.total,
+        email: data.email
+    }
+    sendOrder(payload, payDetail);
 }
