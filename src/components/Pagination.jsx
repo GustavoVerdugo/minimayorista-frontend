@@ -4,7 +4,7 @@ import { DataContext } from '../context/DataContext';
 import { PROD } from "../config";
 const Pagination = () => {
     const { loading, savePagination, pagination, query, page, setPage, saveProduct, setSearching } = useContext(DataContext);
-    async function useCallProductsPagination() {
+    async function callProductsPagination() {
         setSearching(true)
         if (page > 0 && page < pagination) {
             if (query != null) {
@@ -24,7 +24,7 @@ const Pagination = () => {
         }
     }
     useEffect(() => {
-        useCallProductsPagination();
+        callProductsPagination();
     }, [page])
     return (
         <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
