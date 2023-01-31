@@ -5,7 +5,6 @@ import { PROD } from "../config";
 const Pagination = () => {
     const { loading, savePagination, pagination, query, page, setPage, saveProduct, setSearching } = useContext(DataContext);
     async function callProductsPagination() {
-        setSearching(true)
         if (page > 0 && page < pagination) {
             if (query != null) {
                 const response = await fetch(`${PROD}productos?${query}&populate=*&pagination[page]=${page}&pagination[pageSize]=15`)
@@ -24,6 +23,7 @@ const Pagination = () => {
         }
     }
     useEffect(() => {
+        setSearching(true)
         callProductsPagination();
     }, [page])
     return (

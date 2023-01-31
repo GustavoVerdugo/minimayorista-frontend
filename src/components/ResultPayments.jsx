@@ -18,9 +18,9 @@ export default function ResultPayments() {
           <p className="text-gray-600 my-2">Gracias por tu compra!</p>
           <p> Ten un gran día!  </p>
           <div className="py-10 text-center">
-            <a href="/" className="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3">
+            <Link href="/" className="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3" >
               Volver al Inicio
-            </a>
+            </Link>
           </div>
         </div>
       </div>
