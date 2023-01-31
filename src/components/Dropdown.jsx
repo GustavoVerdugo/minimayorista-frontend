@@ -6,7 +6,8 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Dropdown({selected, setSelected, data, onSelect, field}) {
+export default function Dropdown({ data, onSelect, field, sel}) {
+    const [selected, setSelected] = useState(sel || data[0]);
     return (
         <Listbox value={selected} onChange={(index) => {setSelected(index); field != null ? onSelect(field,index) : null;}}>
             {({ open }) => (

@@ -7,38 +7,13 @@ import { DataContext } from "../context/DataContext";
 import PersonalData from "./Checkout/personalData";
 import { Formik } from 'formik';
 import Dropdown from "./Dropdown";
+import Steps from "./Steps";
 
 const Navbar = () => {
     const [navbar, setNavbar] = useState(false);
     const [modalCartVisible, setModalCartVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
-    const { cart, editCantidad, comunas, confirmate, saveConfirmate } = useContext(DataContext);
-    const [stageCart, setStageCard] = useState([]);
-    const [stepTitle, setStepTitle] = useState('');
-    const [setpContent, setStepContent] = useState('');
-    let initialValues = {
-        estado: 'en proceso',
-        subtotal: 0,
-        total: 0,
-        tipos_de_pago: 1,
-        nota_cliente: '',
-        productos: [],
-        envio: 0,
-        nombre: '',
-        apellido: '',
-        direccion: '',
-        region: 'Metropolitana',
-        ciudad: 'Santiago',
-        comuna: '',
-        email: '',
-        telefono: ''
-    }
-    const [data, setData] = useState(initialValues);
-    const handleChange = (name, value) => {
-        setData({ ...data, [name]: value })
-        saveConfirmate(data);
-    }
-    let st = 1;
+    const { cart, editCantidad } = useContext(DataContext);
     const sumCant = (prod, cant) => {
         editCantidad(prod)
     }
@@ -47,29 +22,6 @@ const Navbar = () => {
             editCantidad(prod)
         }
     }
-    const changesSteps = (pr) => {
-        st = pr;
-        switch (st) {
-            case 1:
-                setStepTitle('Datos Personales')
-                setStepContent(<Step1 setModalVisible={setModalVisible} data={data} handleChange={handleChange} changesSteps={changesSteps} />)
-                break;
-            case 2:
-                setStepTitle('Envio')
-                setStepContent(<Step2 changesSteps={changesSteps} handleChange={handleChange} />)
-                break;
-            case 3:
-                setStepTitle('Confirmación de Pedido')
-                setStepContent(<Step3 changesSteps={changesSteps} cart={cart} handleChange={handleChange} data={data} />)
-                break;
-        }
-    }
-    useEffect(() => {
-        changesSteps(1)
-    }, [])
-    useEffect(() => {
-        console.log(confirmate)
-    }, [confirmate])
     return (
         <>
             <nav className="w-screen bg-blue">
@@ -126,7 +78,7 @@ const Navbar = () => {
 
             {/* modales */}
             <Transition appear show={modalCartVisible} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => { setModalCartVisible(false) }}>
+                <Dialog as="div" className="relative z-10 overflow-y-auto" onClose={() => {}}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -226,7 +178,7 @@ const Navbar = () => {
                                                 className={cart.length <= 0 ? `ml-2 bg-gray-200 rounded-md p-2`
                                                     : `inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong`}
                                                 disabled={cart.length > 0 ? false : true}
-                                                onClick={() => { setModalVisible(true); setModalCartVisible(false); }}
+                                                onClick={() => {setModalVisible(true); }}
                                             >
                                                 Realizar Pedido
                                             </button>
@@ -240,7 +192,7 @@ const Navbar = () => {
             </Transition>
             {/* Modal Embebido */}
             <Transition appear show={modalVisible} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => { setModalVisible(false); }}>
+                <Dialog as="div" className="relative z-10 overflow-y-auto" onClose={() => {}}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -265,13 +217,7 @@ const Navbar = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <Dialog.Title
-                                        as="h3"
-                                        className="flex flex-col justify-center items-center text-lg font-semibold leading-6 "
-                                    >
-                                        <span className='text-gray-900'>{stepTitle}</span>
-                                    </Dialog.Title>
-                                    {setpContent}
+                                    <Steps content={cart} setModalVisible={setModalVisible}/>
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
@@ -279,142 +225,6 @@ const Navbar = () => {
                 </Dialog>
             </Transition>
         </>
-    )
-}
-const Step1 = ({ setModalVisible, changesSteps, handleChange }) => {
-    const { comunas } = useContext(DataContext);
-    const [selected, setSelected] = useState(comunas[0])
-    return (
-        <div className="mt-10">
-            <div className="grid grid-cols-2 grid-rows-3 gap-4 justify-items-start">
-                <div>
-                    <label className="mr-4 text-gray-dark">Nombre</label>
-                    <input className="p-2 outline-none rounded-md h-fit md:w-full text-base bg-gray-100" autoFocus={true}
-                        onChange={nombre => handleChange('nombre', nombre.target.value)} />
-                </div>
-                <div>
-                    <label className="mr-4 text-gray-dark">Apellido</label>
-                    <input className="p-2 outline-none rounded-md h-fit md:w-full text-base bg-gray-100"
-                        onChange={apellido => handleChange('apellido', apellido.target.value)} />
-                </div>
-                <div>
-                    <label className="mr-4 text-gray-dark">Dirección</label>
-                    <input className="p-2 outline-none rounded-md h-fit md:w-full text-base bg-gray-100"
-                        onChange={direccion => handleChange('direccion', direccion.target.value)} />
-                </div>
-                <div>
-                    <label className="mr-4 text-gray-dark">Comuna</label>
-                    <div style={{ width: 290 }}>
-
-                    </div>
-                    <Dropdown
-                        selected={selected} setSelected={setSelected}
-                        data={comunas} onSelect={handleChange} field={'comuna'} />
-                    {/* <SelectList
-                            setSelected={setSelectComuna} data={comunas} onSelect={() => {
-                                handleChange('city', selectComuna)
-                            }}
-                            placeholder={'Seleccionar'} search={false} /> */}
-                </div>
-                <div>
-                    <label className="mr-4 text-gray-dark">Correo</label>
-                    <input className="p-2 outline-none rounded-md h-fit md:w-full text-base bg-gray-100"
-                        onChange={email => handleChange('email', email.target.value)} />
-                </div>
-                <div>
-                    <label className="mr-4 text-gray-dark">Celular</label>
-                    <input className="p-2 outline-none rounded-md h-fit md:w-full text-base bg-gray-100"
-                        onChange={telefono => handleChange('telefono', telefono.target.value)} />
-                </div>
-            </div>
-            <div className="flex flex-row justify-evenly items-center mt-8">
-                <button className="p-2 text-white bg-red-500 rounded-md outline-none focus:border-gray-400"
-                    onClick={() => { setModalVisible(false); }}>
-                    Cancelar
-                </button>
-                <button className="p-2 text-white bg-blue rounded-md outline-none focus:border-gray-400"
-                    onClick={() => { changesSteps(2); }}>
-                    Siguiente
-                </button>
-            </div>
-        </div>
-    )
-}
-const Step2 = ({ changesSteps, handleChange }) => {
-    const { tiposEnvio } = useContext(DataContext);
-    const [selected, setSelected] = useState(tiposEnvio[0])
-    return (
-        <div className="mt-10">
-            <div className="grid grid-cols-1 grid-rows-1 gap-2 justify-items-center min-w-full">
-                <div className="w-96">
-                    <label className="mr-4 text-gray-dark">Envío</label>
-                    <Dropdown
-                        selected={selected} setSelected={setSelected}
-                        data={tiposEnvio} onSelect={handleChange} field={'envio'} />
-                    {/* <SelectList
-                            setSelected={setSelectComuna} data={comunas} onSelect={() => {
-                                handleChange('city', selectComuna)
-                            }}
-                            placeholder={'Seleccionar'} search={false} /> */}
-                </div>
-                <div className="w-96">
-                    <label className="mr-4 text-gray-dark">Nota especial</label>
-                    <textarea id="message" rows="8" className="resize-none block p-2.5 w-full text-base text-gray-dark bg-gray-100 rounded-lg border border-gray-200"
-                        onChange={nota_cliente => handleChange('nota_cliente', nota_cliente.target.value)} placeholder="Escribe algún comentario ..."></textarea>
-                </div>
-            </div>
-            <div className="flex flex-row justify-evenly items-center mt-8">
-                <button className="p-2 text-white bg-red-500 rounded-md outline-none focus:border-gray-400"
-                    onClick={() => { changesSteps(1) }}>
-                    Atras
-                </button>
-                <button className="p-2 text-white bg-blue rounded-md outline-none focus:border-gray-400"
-                    onClick={() => { changesSteps(3) }}>
-                    Siguiente
-                </button>
-            </div>
-        </div>
-    )
-}
-const Step3 = ({ changesSteps, cart, handleChange, data }) => {
-    const { comunas } = useContext(DataContext);
-    const calculeSubTotal = async () => {
-        let sub = 0;
-        let total = 0;
-        await cart.map((index) => {
-            sub = sub + (index.price * index.cant)
-        })
-        await comunas.map((index) => {
-            if (data.cliente.comuna) { }
-        })
-        handleChange('subtotal', sub);
-    }
-    useEffect(() => {
-        handleChange('productos', cart);
-        calculeSubTotal();
-    }, [])
-    return (
-        <div className="mt-8">
-            <img
-                src={''}
-                className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
-            />
-            <div className='flex flex-col justify-center items-center mt-8'>
-                <p className="text-lg font-bold text-black cursor-auto my-3">${10}</p>
-                <del>
-                    <p className="text-sm text-gray-600 cursor-auto">${10}</p>
-                </del>
-            </div>
-            <div className="flex flex-row justify-evenly items-center mt-8">
-                <button className="p-2 text-white bg-red-500 rounded-md outline-none focus:border-gray-400"
-                    onClick={() => { changesSteps(2) }}>
-                    Atras
-                </button>
-                <button className="p-2 text-white bg-blue rounded-md outline-none focus:border-gray-400">
-                    Pagar
-                </button>
-            </div>
-        </div>
     )
 }
 export default Navbar;
