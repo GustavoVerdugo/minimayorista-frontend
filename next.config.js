@@ -4,7 +4,15 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: ['minimayorista.cl']
-  }
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/payments.js',
+        destination: 'https://minimayorista-web.onrender.com/',
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

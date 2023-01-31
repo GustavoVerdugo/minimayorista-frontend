@@ -1,7 +1,10 @@
-import { createPay } from "./PayService";
-
-export function sendOrder(payload) {
-    let status = createPay();
+export function sendOrder() {
+    post(`/api/payments`)
+        .then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log(err)
+        })
     /* post(`https://minimayorista-back.onrender.com/api/pedidos`, payload)
         .then(data => {
             console.log(data);
