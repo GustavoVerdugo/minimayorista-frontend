@@ -58,7 +58,6 @@ const ProductsMobile = () => {
             });
             saveQuery(query);
         }
-        console.log(query)
     }, [filters])
 
     return (
@@ -237,7 +236,6 @@ const ProductsMobile = () => {
                                                             :
                                                             <span className='text-gray-600'>{item.attributes.marca.data.attributes.nombre}</span>
                                                     }
-                                                    <span className='text-gray-600'>{item.attributes.marca.data.attributes.nombre}</span>
                                                 </Dialog.Title>
                                                 <div className="mt-8">
                                                     <img
