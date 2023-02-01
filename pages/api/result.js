@@ -1,3 +1,6 @@
+import { useRouter } from "next/router";
+
 export default function handler(req, res) {
-    res.redirect(200, "/result")
+    const router = useRouter();
+    router.push('/result');
 }
