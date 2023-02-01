@@ -1,11 +1,7 @@
 import Link from 'next/link';
 import React, { useEffect } from 'react'
-import { confirmPay } from '../services/PayService'
 
-export default function Confirmpay() {
-  useEffect(() => {
-    console.log('confirmando pago!!!!')
-  }, [])
+export default function ConfirmPay() {
   return (
     <div className="bg-gray-100 h-screen">
       <div className="bg-white p-6  md:mx-auto">
