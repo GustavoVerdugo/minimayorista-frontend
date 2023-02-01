@@ -1,3 +1,3 @@
 export default function handler(req, res) {
-    res.redirect(200, "/result");
+    res.status(200).redirect(307, "/result");
 }
