@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Announc from '../src/components/Announc'
 import Banner from '../src/components/Banner'
 import BrandSlider from '../src/components/BrandSlider'
+import Confirmpay from '../src/components/ConfirmPay'
 import Contact from '../src/components/Contact'
 import Footer from '../src/components/Footer'
 import FormSubs from '../src/components/FormSubs'
@@ -39,7 +40,7 @@ export default function Result() {
                     <Navbar />
                   </div>
                   <main className='flex flex-col justify-center relative'>
-                    <h1>Hola!!</h1>
+                    <Confirmpay />
                   </main>
                 </>
               </div>
