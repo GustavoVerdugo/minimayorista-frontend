@@ -58,6 +58,15 @@ const DataProvider = ({ children }) => {
     const saveQuery = (query) => {
         setQuery(query);
     }
+    const deleteProduct = (id) => {
+        let arr = cart;
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].id === id) {
+                arr.splice(i, 1)
+            }
+        }
+        setCart(arr)
+    }
 
     const saveCart = (prod) => {
         if (cart.find(x => x.id === prod.id)) {
@@ -104,7 +113,8 @@ const DataProvider = ({ children }) => {
         loading, setLoading, productos, saveProduct, categorias, saveCategories, marcas,
         saveMarcas, saveFiltros, filters, saveQuery, query, searching, setSearching, saveCart,
         cart, saveTotal, total, editCantidad, savePagination, pagination, page, setPage, saveComunas,
-        comunas, saveTiposPagos, tiposPagos, saveTiposEnvio, tiposEnvio, saveConfirmate, confirmate
+        comunas, saveTiposPagos, tiposPagos, saveTiposEnvio, tiposEnvio, saveConfirmate, confirmate,
+        deleteProduct, setCart
     }
     return <DataContext.Provider value={ret}>{children}</DataContext.Provider>
 }

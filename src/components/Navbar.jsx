@@ -12,15 +12,23 @@ const Navbar = () => {
     const [navbar, setNavbar] = useState(false);
     const [modalCartVisible, setModalCartVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
-    const { cart, editCantidad } = useContext(DataContext);
+    const [refres, setRefres] = useState(0);
+    const { cart, editCantidad, deleteProduct, setCart } = useContext(DataContext);
     const sumCant = (prod, cant) => {
         editCantidad(prod)
     }
     const delCant = (prod, cant) => {
+        console.log(prod)
         if (cant > 1) {
             editCantidad(prod)
         }
     }
+    const refresh = () => {
+        setRefres(Math.floor(Math.random() * (2000 - 1100 + 1)) + 1100);
+    }
+    useState(() => {
+        setRefres(Math.floor(Math.random() * (2000 - 1100 + 1)) + 1100);
+    }, [refres])
     return (
         <>
             <nav className="w-screen bg-blue">
@@ -71,13 +79,20 @@ const Navbar = () => {
                         <button onClick={() => { setModalCartVisible(true); }}>
                             <FontAwesomeIcon icon={faCartShopping} className="w-6 h-6 text-white" aria-hidden="true" />
                         </button>
+                        {
+                            cart?.length > 0 ?
+                                <div className="bg-red-500 rounded-full relative -left-2 -top-3">
+                                    <span className="text-white p-2 text-sm">{cart.length}</span>
+                                </div>
+                                : null
+                        }
                     </div>
                 </div>
             </nav >
 
             {/* modales */}
             <Transition appear show={modalCartVisible} as={Fragment}>
-                <Dialog as="div" className="relative z-10 overflow-y-auto" onClose={() => {}}>
+                <Dialog as="div" className="relative z-10 overflow-y-auto" onClose={() => { }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -157,7 +172,13 @@ const Navbar = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="flex flex-col justify-center items-center">
-                                                                <FontAwesomeIcon icon={faTrashCan} className='h-6 w-6 text-red-500' aria-hidden='true' />
+                                                                <button
+                                                                    onClick={() => {
+                                                                        deleteProduct(ct.id);
+                                                                        refresh();
+                                                                    }}>
+                                                                    <FontAwesomeIcon icon={faTrashCan} className='h-6 w-6 text-red-500' aria-hidden='true' />
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     ))
@@ -177,7 +198,7 @@ const Navbar = () => {
                                                 className={cart.length <= 0 ? `ml-2 bg-gray-200 rounded-md p-2`
                                                     : `inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong`}
                                                 disabled={cart.length > 0 ? false : true}
-                                                onClick={() => {setModalVisible(true); }}
+                                                onClick={() => { setModalVisible(true); }}
                                             >
                                                 Realizar Pedido
                                             </button>
@@ -191,7 +212,7 @@ const Navbar = () => {
             </Transition>
             {/* Modal Embebido */}
             <Transition appear show={modalVisible} as={Fragment}>
-                <Dialog as="div" className="relative z-10 overflow-y-auto" onClose={() => {}}>
+                <Dialog as="div" className="relative z-10 overflow-y-auto" onClose={() => { }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -216,7 +237,7 @@ const Navbar = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <Steps content={cart} setModalVisible={setModalVisible}/>
+                                    <Steps content={cart} setModalVisible={setModalVisible} />
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
