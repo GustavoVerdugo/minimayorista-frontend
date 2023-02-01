@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useRouter } from 'next/router';
 import { Dialog } from '@headlessui/react';
 import { DataContext } from "../context/DataContext";
 import Dropdown from "./Dropdown";
@@ -7,6 +8,7 @@ import { validateEmpty } from "../helpers/magics";
 
 const Steps = ({ content, setModalVisible }) => {
   const { comunas, tiposEnvio } = useContext(DataContext);
+  const router = useRouter();
   let initialValues = {
     estado: 'en proceso',
     subtotal: 0,
@@ -36,8 +38,10 @@ const Steps = ({ content, setModalVisible }) => {
   const handleSteps = (level) => {
     setStep(level);
   }
-  const handleSendOrder = () => {
-    createOrder(data);
+  const handleSendOrder = async () => {
+    let resp = await createOrder(data);
+    localStorage.setItem('tkn', resp.token);
+    router.push(resp.redirect)
   }
   useEffect(() => {
     if (data.envio.id === 1) {

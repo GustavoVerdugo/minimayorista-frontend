@@ -1,6 +1,6 @@
 import { sendOrder } from "../services/OrderService"
 
-export function createOrder(data) {
+export async function createOrder(data) {
     let arr = [];
     data.productos.map((item) => {
         arr.push({
@@ -36,5 +36,6 @@ export function createOrder(data) {
         amount: data.total,
         email: data.email
     }
-    sendOrder(payload, payDetail);
+    const order = await sendOrder(payload, payDetail);
+    return order;
 }
