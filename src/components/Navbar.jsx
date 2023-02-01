@@ -37,7 +37,7 @@ const Navbar = () => {
                         <div>
                             <div className="flex items-center justify-between py-3 md:py-5 md:block">
                                 <a className="hidden md:flex items-center justify-center text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
-                                    <img src={`https://minimayorista.cl/assets/Logo-Minimayorista-chico.png.webp`} alt="Company logo" className="h-16 w-full md:h-14 md:w-60 text-black pr-2" />
+                                    <img src={`https://assets.minimayorista.cl/Logo-Minimayorista-chico.png.webp`} alt="Company logo" className="h-16 w-full md:h-14 md:w-60 text-black pr-2" />
                                 </a>
                                 <div className="md:hidden">
                                     <button
