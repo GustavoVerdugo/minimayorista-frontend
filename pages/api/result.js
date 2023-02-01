@@ -1,3 +1,3 @@
 export default function handler(req, res) {
-    res.status(200).redirect(307, "/result");
+    res.redirect(307, "https://minimayorista-web.onrender.com/result");
 }

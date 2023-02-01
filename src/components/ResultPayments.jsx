@@ -2,6 +2,9 @@ import Link from 'next/link';
 import React, { useEffect } from 'react'
 
 export default function ResultPayments() {
+  useEffect(() => {
+    console.log('llegando al result')
+  }, [])
   return (
     <div className="bg-gray-100 h-screen">
       <div className="bg-white p-6  md:mx-auto">
