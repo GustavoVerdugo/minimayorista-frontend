@@ -14,7 +14,6 @@ import useFetch from '../src/helpers/useFetch'
 import styles from '../styles/Home.module.css'
 
 export default function Result() {
-  const { loading } = useFetch();
   return (
     <div className='bg-white w-screen h-screen'>
       <Head>
@@ -29,26 +28,19 @@ export default function Result() {
 
 
       <>
-        {
-          loading ?
-            null
-            :
-            <>
-              <div>
-                <>
-                  <div className='top-0 z-50'>
-                    <Navbar />
-                  </div>
-                  <main className='flex flex-col justify-center relative'>
-                    <ResultPayments />
-                  </main>
-                </>
-              </div>
-              <div className='mx-auto bottom-0'>
-                <Footer />
-              </div>
-            </>
-        }
+        <div>
+          <>
+            <div className='top-0 z-50'>
+              <Navbar />
+            </div>
+            <main className='flex flex-col justify-center relative'>
+              <ResultPayments />
+            </main>
+          </>
+        </div>
+        <div className='mx-auto bottom-0'>
+          <Footer />
+        </div>
       </>
     </div>
   )
