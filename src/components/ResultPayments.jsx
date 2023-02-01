@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react'
 
 export default function ResultPayments() {
-  const router = useRouter();
+  /* const router = useRouter();
   const getResult = async () => {
     let params = {
       token: localStorage.getItem('tkn')
@@ -24,7 +24,7 @@ export default function ResultPayments() {
   }
   useEffect(() => {
     getResult();
-  }, [])
+  }, []) */
   return (
     <div className="bg-gray-100 h-screen">
       <div className="bg-white p-6  md:mx-auto">

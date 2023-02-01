@@ -7,7 +7,8 @@ export async function sendOrder(payload, payDetail) {
         email: payDetail.email,
         paymentMethod: 9,
         urlConfirmation: "https://payments-nple.onrender.com/apiFlow/payment_confirm",
-        urlReturn: "https://minimayorista-web.onrender.com/result"
+        urlReturn: "https://payments-nple.onrender.com/apiFlow/result"
+        /* https://minimayorista-web.onrender.com/result */
     }
     const response = await fetch(`https://payments-nple.onrender.com/apiFlow/create_order`, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
