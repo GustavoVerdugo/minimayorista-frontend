@@ -232,7 +232,7 @@ const ProductsMobile = () => {
                                                 >
                                                     <span className='text-gray-900'>{item.attributes.nombre}</span>
                                                     {
-                                                        items.attributes.marca.data === null ?
+                                                        item.attributes.marca.data === null ?
                                                         <span className='text-gray-600'>GENERICO</span>
                                                             :
                                                             <span className='text-gray-600'>{item.attributes.marca.data.attributes.nombre}</span>
