@@ -231,6 +231,12 @@ const ProductsMobile = () => {
                                                     className="flex flex-col justify-center items-center text-lg font-semibold leading-6 "
                                                 >
                                                     <span className='text-gray-900'>{item.attributes.nombre}</span>
+                                                    {
+                                                        items.attributes.marca.data === null ?
+                                                        <span className='text-gray-600'>GENERICO</span>
+                                                            :
+                                                            <span className='text-gray-600'>{item.attributes.marca.data.attributes.nombre}</span>
+                                                    }
                                                     <span className='text-gray-600'>{item.attributes.marca.data.attributes.nombre}</span>
                                                 </Dialog.Title>
                                                 <div className="mt-8">
