@@ -198,7 +198,7 @@ const Navbar = () => {
                                                 className={cart.length <= 0 ? `ml-2 bg-gray-200 rounded-md p-2`
                                                     : `inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong`}
                                                 disabled={cart.length > 0 ? false : true}
-                                                onClick={() => { setModalVisible(true); }}
+                                                onClick={() => { setModalCartVisible(false); setModalVisible(true); }}
                                             >
                                                 Realizar Pedido
                                             </button>
