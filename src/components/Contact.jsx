@@ -59,7 +59,7 @@ const Contact = () => {
                                 <input type='submit' className="bg-blue m-2 p-2 rounded-md text-white font-semibold text-lg w-1/2" value={`Enviar`} />
                                 :
                                 <div className="flex justify-center items-center bg-blue m-2 p-2 rounded-md text-white font-semibold text-lg w-1/2">
-                                    <div class="animate-spin rounded-full h-6 w-6 border-t-2 border-white"></div>
+                                    <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-white"></div>
                                 </div>}
                         </div>
                     </form>
