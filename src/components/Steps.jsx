@@ -83,7 +83,7 @@ const Steps = ({ content, setModalVisible }) => {
               <div className="grid grid-cols-2 grid-rows-3 gap-4 justify-items-start">
                 <div>
                   <label className="mr-4 text-gray-dark">Nombre</label>
-                  <input className="p-2 outline-none rounded-md h-fit md:w-full text-base bg-gray-100" autoFocus={true}
+                  <input className="p-2 outline-none rounded-md h-fit md:w-full text-base bg-gray-100"
                     onChange={nombre => handleChange('nombre', nombre.target.value)}
                     value={data.nombre} />
                 </div>
