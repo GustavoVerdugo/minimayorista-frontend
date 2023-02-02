@@ -1,30 +1,12 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react'
+import { saveOrder } from '../helpers/useOrders';
 
 export default function ResultPayments() {
-  /* const router = useRouter();
-  const getResult = async () => {
-    let params = {
-      token: localStorage.getItem('tkn')
-    };
-    const response = await fetch(`https://payments-nple.onrender.com/apiFlow/result`, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify(params) // body data type must match "Content-Type" header
-    });
-    const data = await response.json();
-    console.log(data)
-    await router.push("/payment_confirm");
-    return data;
-  }
   useEffect(() => {
-    getResult();
-  }, []) */
+    saveOrder(localStorage.getItem('payload'));
+  }, [])
   return (
     <div className="flex flex-col justify-center items-center bg-gray-100 min-h-full">
       <div className="bg-white p-6 min-w-full min-h-screen  md:mx-auto">

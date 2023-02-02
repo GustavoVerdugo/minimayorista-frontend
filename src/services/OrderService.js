@@ -1,4 +1,5 @@
 export async function sendOrder(payload, payDetail) {
+    localStorage.setItem('payload', payload);
     let dt = {
         commerceOrder: Math.floor(Math.random() * (2000 - 1100 + 1)) + 1100,
         subject: "Pago Minimayorista",
@@ -21,27 +22,18 @@ export async function sendOrder(payload, payDetail) {
     });
     const data = await response.json();
     return data;
-    /* post(`https://minimayorista-back.onrender.com/api/pedidos`, payload)
-        .then(data => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err)
-        }) */
 }
 
-export function confirmOrder() {
-
-}
-
-async function post(url, data) {
-    const response = await fetch(url, {
+export async function confirmOrder(payl) {
+    const response = await fetch(`https://minimayorista-back.onrender.com/api/pedidos`, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        body: JSON.stringify(payl) // body data type must match "Content-Type" header
     });
-    return response.json();
+    const data = await response.json();
+    return data;
 }

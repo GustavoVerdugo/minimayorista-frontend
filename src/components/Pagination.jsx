@@ -35,14 +35,14 @@ const Pagination = () => {
                             <div className="flex-1 flex justify-between sm:hidden">
                                 <button
                                     disabled={page === 1 ? true : false}
-                                    className="relative inline-flex items-center px-4 py-2 border border-gray-200 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:text-gray bg-gray"
+                                    className="relative inline-flex items-center px-4 py-2 border border-gray-200 text-sm font-medium rounded-md text-black bg-white disabled:text-black disabled:bg-gray"
                                     onClick={() => { setPage(page - 1) }}
                                 >
                                     Anterior
                                 </button>
                                 <button
                                     disabled={page === pagination ? true : false}
-                                    className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-200 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                                    className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-200 text-sm font-medium rounded-md text-black bg-white"
                                     onClick={() => { setPage(page + 1) }}
                                 >
                                     Siguiente
@@ -54,7 +54,7 @@ const Pagination = () => {
                                         <button
                                             disabled={page === 1 ? true : false}
                                             onClick={() => { setPage(page - 1) }}
-                                            className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 disabled:text-gray bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
+                                            className="relative inline-flex items-center px-4 py-2 border border-gray-200 text-sm font-medium rounded-md text-black bg-white disabled:text-black disabled:bg-gray"
                                         >
                                             <span className="sr-only">Anterior</span>
                                             <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
@@ -63,7 +63,7 @@ const Pagination = () => {
                                         {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
                                         <button
                                             disabled={page === pagination ? true : false}
-                                            className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 disabled:text-gray bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
+                                            className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 disabled:text-gray bg-white text-sm font-medium text-gray-700"
                                             onClick={() => { setPage(page + 1) }}
                                         >
                                             <span className="sr-only">Siguiente</span>

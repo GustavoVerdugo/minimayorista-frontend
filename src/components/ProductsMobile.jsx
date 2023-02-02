@@ -117,7 +117,7 @@ const ProductsMobile = () => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-black bg-opacity-50" />
+                        <div className="fixed" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 overflow-y-auto">
@@ -131,7 +131,7 @@ const ProductsMobile = () => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     {
                                         detail.map((item) => (
                                             <>
@@ -207,7 +207,7 @@ const ProductsMobile = () => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-black bg-opacity-50" />
+                        <div className="fixed" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 overflow-y-auto">
@@ -221,7 +221,7 @@ const ProductsMobile = () => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     {
                                         detail.map((item) => (
                                             <>

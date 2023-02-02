@@ -1,4 +1,4 @@
-import { sendOrder } from "../services/OrderService"
+import { confirmOrder, sendOrder } from "../services/OrderService"
 
 export async function createOrder(data) {
     let arr = [];
@@ -38,4 +38,9 @@ export async function createOrder(data) {
     }
     const order = await sendOrder(payload, payDetail);
     return order;
+}
+
+export async function saveOrder(payl) {
+    const response =  await confirmOrder(payl);
+    return response;
 }
