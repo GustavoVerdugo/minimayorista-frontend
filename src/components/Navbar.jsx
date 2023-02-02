@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useRef, useState } from "react";
 import Link from 'next/link';
 import { Dialog, Disclosure, Menu, Transition, Listbox } from '@headlessui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,6 +9,7 @@ import Dropdown from "./Dropdown";
 import Steps from "./Steps";
 
 const Navbar = () => {
+    let refDiv = useRef(null)
     const [navbar, setNavbar] = useState(false);
     const [modalCartVisible, setModalCartVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
@@ -212,7 +213,8 @@ const Navbar = () => {
             </Transition>
             {/* Modal Embebido */}
             <Transition appear show={modalVisible} as={Fragment}>
-                <Dialog as="div" className="relative z-10 overflow-y-auto" onClose={() => { }}>
+                <Dialog initialFocus={refDiv}
+                    as="div" className="relative z-10 overflow-y-auto" onClose={() => { }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
