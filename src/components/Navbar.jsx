@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { createRef, Fragment, useContext, useEffect, useState } from "react";
 import Link from 'next/link';
 import { Dialog, Disclosure, Menu, Transition, Listbox } from '@headlessui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,8 +7,10 @@ import { DataContext } from "../context/DataContext";
 import { Formik } from 'formik';
 import Dropdown from "./Dropdown";
 import Steps from "./Steps";
+import Modal from "./Modal";
 
 const Navbar = () => {
+    const refd = createRef()
     const [navbar, setNavbar] = useState(false);
     const [modalCartVisible, setModalCartVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
@@ -23,6 +25,12 @@ const Navbar = () => {
             editCantidad(prod)
         }
     }
+    const openModal = () => {
+        setModalCartVisible(true)
+    }
+    const closeModal = () => {
+        setModalCartVisible(false)
+    }
     const refresh = () => {
         setRefres(Math.floor(Math.random() * (2000 - 1100 + 1)) + 1100);
     }
@@ -31,7 +39,7 @@ const Navbar = () => {
     }, [refres])
     return (
         <>
-            <nav className="w-screen bg-blue">
+            <nav className="w-screen bg-blue" ref={refd}>
                 <div className="flex flex-row justify-between px-4 mx-auto lg:max-w-full md:items-center md:flex md:px-8">
                     <div className="flex md:items-center justify-start">
                         <div>
@@ -92,7 +100,7 @@ const Navbar = () => {
 
             {/* modales */}
             <Transition appear show={modalCartVisible} as={Fragment}>
-                <Dialog as="div" className="relative z-10 overflow-y-auto" onClose={() => { }}>
+                <Dialog as="div" className="relative z-10 overflow-y-auto" onClose={() => { closeModal(false) }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -189,7 +197,7 @@ const Navbar = () => {
                                             <button
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                onClick={() => { setModalCartVisible(false) }}
+                                                onClick={() => { setTimeout(setModalCartVisible(false)); refd.focus(); }}
                                             >
                                                 Cancelar
                                             </button>
@@ -198,7 +206,7 @@ const Navbar = () => {
                                                 className={cart.length <= 0 ? `ml-2 bg-gray-200 rounded-md p-2`
                                                     : `inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong`}
                                                 disabled={cart.length > 0 ? false : true}
-                                                onClick={() => { setModalCartVisible(false); setModalVisible(true); }}
+                                                onClick={() => { setTimeout(closeModal(false),100); setTimeout(setModalVisible(true), 100); }}
                                             >
                                                 Realizar Pedido
                                             </button>

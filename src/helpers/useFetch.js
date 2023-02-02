@@ -7,7 +7,7 @@ const useFetch = (url) => {
 
     const getProducts = async () => {
         if (query == null) {
-            const response = await fetch(`${PROD}productos?populate=*&pagination[page]=1&pagination[pageSize]=15`)
+            const response = await fetch(`${PROD}productos?populate=*&pagination[page]=1&pagination[pageSize]=25`)
             const data = await response.json()
             await saveProduct(data.data);
             await savePagination(data.meta.pagination.pageCount)
