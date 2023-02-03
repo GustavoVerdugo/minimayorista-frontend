@@ -90,6 +90,7 @@ export default function Filters() {
             setSearching(true);
             const response = await fetch(`${PROD}productos?${query}&populate=*&pagination[page]=1&pagination[pageSize]=15`)
             const data = await response.json()
+            console.log(data)
             await saveProduct(data.data);
             await savePagination(data.meta.pagination.pageCount)
         } else {

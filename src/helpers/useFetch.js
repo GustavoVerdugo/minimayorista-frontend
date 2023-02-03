@@ -9,6 +9,7 @@ const useFetch = (url) => {
         if (query == null) {
             const response = await fetch(`${PROD}productos?populate=*&pagination[page]=1&pagination[pageSize]=25`)
             const data = await response.json()
+            console.log(data)
             await saveProduct(data.data);
             await savePagination(data.meta.pagination.pageCount)
         }

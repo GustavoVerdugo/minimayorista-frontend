@@ -117,7 +117,7 @@ const Products = () => {
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     {
                                         detail.map((item) => (
-                                            <>
+                                            <div key={item.id}>
                                                 <Dialog.Title
                                                     as="h3"
                                                     className="flex flex-row justify-center items-center max-w-sm text-lg font-bold leading-6 text-gray-900"
@@ -168,7 +168,7 @@ const Products = () => {
                                                         Aceptar
                                                     </button>
                                                 </div>
-                                            </>
+                                            </div>
                                         ))
                                     }
 

@@ -5,6 +5,7 @@ import { saveOrder } from '../helpers/useOrders';
 
 export default function ResultPayments() {
   useEffect(() => {
+    console.log(localStorage.getItem('payload'))
     saveOrder(localStorage.getItem('payload'));
   }, [])
   return (

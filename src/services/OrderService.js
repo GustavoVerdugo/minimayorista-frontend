@@ -32,7 +32,7 @@ export async function confirmOrder(payl) {
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(payl) // body data type must match "Content-Type" header
+        body: payl // body data type must match "Content-Type" header
     });
     const data = await response.json();
     return data;
