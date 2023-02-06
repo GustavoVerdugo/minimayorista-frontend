@@ -5,8 +5,7 @@ import { saveOrder } from '../helpers/useOrders';
 
 export default function ResultPayments() {
   useEffect(() => {
-    console.log(localStorage.getItem('payload'))
-    saveOrder(localStorage.getItem('payload'));
+    saveOrder(JSON.parse(localStorage.getItem('payload')));
   }, [])
   return (
     <div className="flex flex-col justify-center items-center bg-gray-100 min-h-full">

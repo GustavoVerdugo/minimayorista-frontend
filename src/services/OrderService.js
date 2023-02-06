@@ -1,5 +1,5 @@
 export async function sendOrder(payload, payDetail) {
-    localStorage.setItem('payload', payload);
+    localStorage.setItem('payload', JSON.stringify(payload));
     let dt = {
         commerceOrder: Math.floor(Math.random() * (2000 - 1100 + 1)) + 1100,
         subject: "Pago Minimayorista",
@@ -9,16 +9,14 @@ export async function sendOrder(payload, payDetail) {
         paymentMethod: 9,
         urlConfirmation: "https://payments-nple.onrender.com/apiFlow/payment_confirm",
         urlReturn: "https://payments-nple.onrender.com/apiFlow/result"
-        /* https://minimayorista-web.onrender.com/result */
     }
     const response = await fetch(`https://payments-nple.onrender.com/apiFlow/create_order`, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        method: 'POST',
+        cache: 'no-cache',
         headers: {
             'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(dt) // body data type must match "Content-Type" header
+        body: JSON.stringify(dt)
     });
     const data = await response.json();
     return data;
