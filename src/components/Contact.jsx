@@ -16,7 +16,6 @@ const Contact = () => {
         e.preventDefault();
         emailjs.sendForm(emailkey.SERVICE_ID, emailkey.TEMPLATE_ID, form.current, emailkey.PUBLIC_KEY)
             .then((result) => {
-                console.log(result.text);
                 setSend(true);
                 setLoading(false);
             }, (error) => {

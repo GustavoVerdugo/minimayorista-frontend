@@ -20,7 +20,6 @@ const Navbar = () => {
         editCantidad(prod)
     }
     const delCant = (prod, cant) => {
-        console.log(prod)
         if (cant > 1) {
             editCantidad(prod)
         }

@@ -85,12 +85,10 @@ export default function Filters() {
         setFiltros({ ...filtros, 'marcas': arr })
     }
     const getProductsByFilters = async () => {
-        console.log(query)
         if (query != null) {
             setSearching(true);
             const response = await fetch(`${PROD}productos?${query}&populate=*&pagination[page]=1&pagination[pageSize]=15`)
             const data = await response.json()
-            console.log(data)
             await saveProduct(data.data);
             await savePagination(data.meta.pagination.pageCount)
         } else {
@@ -152,7 +150,6 @@ export default function Filters() {
             query = null
         }
         setMobileFiltersOpen(false);
-        console.log(filtros)
         getData()
     }
 
