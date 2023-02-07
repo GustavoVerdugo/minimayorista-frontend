@@ -5,9 +5,13 @@ import { saveOrder } from '../helpers/useOrders';
 
 export default function ResultPayments() {
   const router = useRouter();
+  const setter = () => {
+    saveOrder(localStorage.getItem('payload'));
+    setTimeout(() => { router.push('/') }, 3000);
+  }
   useEffect(() => {
     localStorage.getItem('payload') ? 
-    saveOrder(localStorage.getItem('payload')) :
+    setter():
     router.push('/');
   }, [])
   return (
