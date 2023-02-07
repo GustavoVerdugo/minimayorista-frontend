@@ -6,7 +6,7 @@ import Dropdown from "./Dropdown";
 import { createOrder } from "../helpers/useOrders";
 import { validateEmpty } from "../helpers/magics";
 
-const Steps = ({ content, setModalVisible }) => {
+const Steps = ({ content, setModalVisible, foc }) => {
   const { comunas, tiposEnvio } = useContext(DataContext);
   const router = useRouter();
   let initialValues = {
@@ -80,7 +80,7 @@ const Steps = ({ content, setModalVisible }) => {
               <span className='text-gray-900'>Datos Personales</span>
             </Dialog.Title>
             <div className="mt-10">
-              <div className="grid grid-cols-2 grid-rows-3 gap-4 justify-items-start">
+              <div className="grid sm:grid-cols-1 md:grid-cols-2 grid-rows-3 gap-4 justify-items-start">
                 <div>
                   <label className="mr-4 text-gray-dark">Nombre</label>
                   <input className="p-2 outline-none rounded-md h-fit md:w-full text-base bg-gray-100" autoFocus={true}
@@ -121,7 +121,7 @@ const Steps = ({ content, setModalVisible }) => {
               </div>
               <div className="flex flex-row justify-evenly items-center mt-8">
                 <button className="p-2 text-white bg-red-500 rounded-md outline-none focus:border-gray-400"
-                  onClick={() => { setModalVisible(false); }}>
+                  onClick={() => { setModalVisible(false); foc.focus(); }}>
                   Cancelar
                 </button>
                 <button className={active ? `bg-gray-200 rounded-md p-2` : `p-2 text-white bg-blue rounded-md outline-none focus:border-gray-400`}
@@ -141,13 +141,13 @@ const Steps = ({ content, setModalVisible }) => {
                 <span className='text-gray-900'>Envio</span>
               </Dialog.Title>
               <div className="mt-10">
-                <div className="grid grid-cols-1 grid-rows-1 gap-2 justify-items-center min-w-full">
-                  <div className="w-96">
+                <div className="grid grid-cols-1 grid-rows-1 gap-2 justify-items-center md:min-w-full">
+                  <div className="sm:w-40 md:w-96">
                     <label className="mr-4 text-gray-dark">Envío</label>
                     <Dropdown
                       data={tiposEnvio} onSelect={handleChange} field={'envio'} sel={data.envio} />
                   </div>
-                  <div className="w-96">
+                  <div className="sm:w-40 md:w-96">
                     <label className="mr-4 text-gray-dark">Nota especial</label>
                     <textarea id="message" rows="8" className="resize-none block p-2.5 w-full text-base text-gray-dark bg-gray-100 rounded-lg border border-gray-200"
                       onChange={nota_cliente => handleChange('nota_cliente', nota_cliente.target.value)} placeholder="Escribe algún comentario ..."></textarea>
@@ -193,8 +193,8 @@ const Steps = ({ content, setModalVisible }) => {
                       ))
                     }
                   </div>
-                  <div className='grid grid-rows-2 grid-cols-2 justify-items-center mt-8 h-fit'>
-                    <div className='grid grid-rows-4 gap-0.5 justify-start w-auto h-fit bg-white rounded-md'>
+                  <div className='grid sm:grid-rows-1 md:grid-rows-2 grid-cols-2 justify-items-center mt-8 h-fit'>
+                    <div className='grid sm:grid-rows-2 md:grid-rows-4 gap-0.5 justify-start w-auto h-fit bg-white rounded-md'>
                       <div className="flex flex-row justify-start w-auto h-fit">
                         <span className='text-gray-800 mr-2 text-sm font-medium'>{data.nombre} {data.apellido} </span>
                       </div>
@@ -208,7 +208,7 @@ const Steps = ({ content, setModalVisible }) => {
                         <span className='text-gray-800 mr-2 text-sm font-medium'>{data.direccion}, {data.comuna.attributes.nombre}, {data.ciudad}</span>
                       </div>
                     </div>
-                    <div className='grid grid-rows-4 gap-0.5 justify-start w-auto h-fit bg-white rounded-md'>
+                    <div className='grid sm:grid-rows-2 md:grid-rows-4 gap-0.5 justify-start w-auto h-fit bg-white rounded-md'>
                       <div className="flex flex-row justify-start w-auto h-fit">
                         <span className='text-gray-800 mr-2 text-sm font-medium'>Subtotal: ${parseInt(data.subtotal).toLocaleString('es-CL')}</span>
                       </div>

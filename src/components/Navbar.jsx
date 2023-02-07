@@ -1,4 +1,4 @@
-import React, { createRef, Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import Link from 'next/link';
 import { Dialog, Disclosure, Menu, Transition, Listbox } from '@headlessui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +10,7 @@ import Steps from "./Steps";
 import Modal from "./Modal";
 
 const Navbar = () => {
-    const refd = createRef()
+    const foc = document.getElementById('nav');
     const [navbar, setNavbar] = useState(false);
     const [modalCartVisible, setModalCartVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
@@ -20,6 +20,7 @@ const Navbar = () => {
         editCantidad(prod)
     }
     const delCant = (prod, cant) => {
+        console.log(prod)
         if (cant > 1) {
             editCantidad(prod)
         }
@@ -38,7 +39,7 @@ const Navbar = () => {
     }, [refres])
     return (
         <>
-            <nav className="w-screen bg-blue" ref={refd}>
+            <nav className="w-screen bg-blue" id="nav">
                 <div className="flex flex-row justify-between px-4 mx-auto lg:max-w-full md:items-center md:flex md:px-8">
                     <div className="flex md:items-center justify-start">
                         <div>
@@ -99,7 +100,7 @@ const Navbar = () => {
 
             {/* modales */}
             <Transition appear show={modalCartVisible} as={Fragment}>
-                <Dialog as="div" className="relative z-10 overflow-y-auto" onClose={() => { closeModal(false) }}>
+                <Dialog as="div" className="relative z-10" onClose={() => { }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -156,7 +157,7 @@ const Navbar = () => {
                                                                                     cant: ct.cant - 1
                                                                                 },
                                                                                 ct.cant
-                                                                            )
+                                                                            );
                                                                         }}>
                                                                         <FontAwesomeIcon icon={faMinus} className='h-5 w-5 text-gray-dark' aria-hidden='true' />
                                                                     </button>
@@ -196,7 +197,7 @@ const Navbar = () => {
                                             <button
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                onClick={() => { setTimeout(setModalCartVisible(false)); refd.focus(); }}
+                                                onClick={() => { setTimeout(setModalCartVisible(false)); foc.focus(); }}
                                             >
                                                 Cancelar
                                             </button>
@@ -219,7 +220,7 @@ const Navbar = () => {
             </Transition>
             {/* Modal Embebido */}
             <Transition appear show={modalVisible} as={Fragment}>
-                <Dialog as="div" className="relative z-10 overflow-y-auto" onClose={() => { }}>
+                <Dialog as="div" className="relative z-10" onClose={() => { }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -244,7 +245,7 @@ const Navbar = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <Steps content={cart} setModalVisible={setModalVisible} />
+                                    <Steps content={cart} setModalVisible={setModalVisible} foc={foc} />
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>

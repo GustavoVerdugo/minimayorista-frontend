@@ -9,6 +9,7 @@ import useFetchCustom from '../helpers/useFetchCustom';
 const qs = require('qs');
 
 const Products = () => {
+    const foc = document.getElementById('products');
     const { productos, loading, filters, saveQuery, saveCart, searching } = useContext(DataContext);
     const aboutRef = useRef();
     const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +43,7 @@ const Products = () => {
                         !searching ?
 
                             productos.map((items) => (
-                                <div className="w-48 h-fit bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl" key={items.id}>
+                                <div key={items.id} className="w-48 h-fit bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
                                     <div className='flex flex-col justify-center items-start absolute'>
                                         {!items.attributes.status_stock ?
                                             <span className='bg-red-500 text-white p-2 rounded-sm text-lg'>Agotado</span>
@@ -90,7 +91,7 @@ const Products = () => {
 
             {/* modales */}
             <Transition appear show={isOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => { setIsOpen(false) }}>
+                <Dialog as="div" className="relative z-10" onClose={() => { }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -146,7 +147,7 @@ const Products = () => {
                                                     <button
                                                         type="button"
                                                         className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                        onClick={() => { purgCant(); setIsOpen(false); }}
+                                                        onClick={() => { purgCant(); setIsOpen(false); foc.focus(); }}
                                                     >
                                                         Cancelar
                                                     </button>
@@ -163,6 +164,7 @@ const Products = () => {
                                                             });
                                                             setIsOpen(false);
                                                             purgCant();
+                                                            foc.focus();
                                                         }}
                                                     >
                                                         Aceptar
@@ -180,7 +182,7 @@ const Products = () => {
             </Transition>
 
             <Transition appear show={isOpenDetail} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => { setIsOpenDetail(false); setAddCart(false); }}>
+                <Dialog as="div" className="relative z-10" onClose={() => { }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -207,7 +209,7 @@ const Products = () => {
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     {
                                         detail.map((item) => (
-                                            <>
+                                            <div key={item.id}>
                                                 <Dialog.Title
                                                     as="h3"
                                                     className="flex flex-col justify-center items-center text-lg font-semibold leading-6 "
@@ -270,7 +272,7 @@ const Products = () => {
                                                             <button
                                                                 type="button"
                                                                 className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                                onClick={() => { setAddCart(false); purgCant(); }}
+                                                                onClick={() => { setAddCart(false); purgCant(); foc.focus(); }}
                                                             >
                                                                 Cancelar
                                                             </button>
@@ -288,6 +290,7 @@ const Products = () => {
                                                                     setIsOpenDetail(false);
                                                                     setAddCart(false);
                                                                     purgCant();
+                                                                    foc.focus();
                                                                 }}
                                                             >
                                                                 Aceptar
@@ -295,7 +298,7 @@ const Products = () => {
                                                         </div>
                                                         : null
                                                 }
-                                            </>
+                                            </div>
                                         ))
                                     }
 

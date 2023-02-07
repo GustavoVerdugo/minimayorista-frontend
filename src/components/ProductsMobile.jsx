@@ -9,6 +9,7 @@ import useFetchCustom from '../helpers/useFetchCustom';
 const qs = require('qs');
 
 const ProductsMobile = () => {
+    const foc = document.getElementById('products-mobile');
     const { productos, loading, filters, saveQuery, saveCart, searching } = useContext(DataContext);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenDetail, setIsOpenDetail] = useState(false);
@@ -62,12 +63,12 @@ const ProductsMobile = () => {
 
     return (
         <>
-            <section className='w-full mx-1 flex flex-col'>
+            <section id="products-mobile" className='w-full mx-1 flex flex-col'>
                 {
                     !loading ?
                         !searching ?
                             productos.map((items) => (
-                                <div className='flex flex-row justify-around w-full h-fit bg-white rounded-md' key={items.id}>
+                                <div key={items.id} className='flex flex-row justify-around w-full h-fit bg-white rounded-md'>
                                     <button className='flex flex-row w-full h-fit bg-white rounded-md'
                                         onClick={() => { setDetail([items]); setIsOpenDetail(!isOpenDetail) }}
                                         disabled={!items.attributes.status_stock}>
@@ -107,7 +108,7 @@ const ProductsMobile = () => {
 
             {/* modales */}
             <Transition appear show={isOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => { setIsOpen(false) }}>
+                <Dialog as="div" className="relative z-10" onClose={() => { }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -134,7 +135,7 @@ const ProductsMobile = () => {
                                 <Dialog.Panel className="max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     {
                                         detail.map((item) => (
-                                            <>
+                                            <div key={item.id}>
                                                 <Dialog.Title
                                                     as="h3"
                                                     className="flex flex-row justify-center items-center max-w-sm text-lg font-bold leading-6 text-gray-900"
@@ -163,7 +164,7 @@ const ProductsMobile = () => {
                                                     <button
                                                         type="button"
                                                         className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                        onClick={() => { setIsOpen(false); purgCant(); }}
+                                                        onClick={() => { setIsOpen(false); purgCant(); foc.focus(); }}
                                                     >
                                                         Cancelar
                                                     </button>
@@ -180,12 +181,13 @@ const ProductsMobile = () => {
                                                             });
                                                             setIsOpen(false);
                                                             purgCant();
+                                                            foc.focus();
                                                         }}
                                                     >
                                                         Aceptar
                                                     </button>
                                                 </div>
-                                            </>
+                                            </div>
                                         ))
                                     }
 
@@ -197,7 +199,7 @@ const ProductsMobile = () => {
             </Transition>
 
             <Transition appear show={isOpenDetail} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => { setIsOpenDetail(false); setAddCart(false); }}>
+                <Dialog as="div" className="relative z-10" onClose={() => {  }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -224,7 +226,7 @@ const ProductsMobile = () => {
                                 <Dialog.Panel className="max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     {
                                         detail.map((item) => (
-                                            <>
+                                            <div key={item.id}>
                                                 <Dialog.Title
                                                     as="h3"
                                                     className="flex flex-col justify-center items-center text-lg font-semibold leading-6 "
@@ -254,14 +256,14 @@ const ProductsMobile = () => {
                                                                 <button
                                                                     type="button"
                                                                     className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                                    onClick={() => { setIsOpenDetail(false) }}
+                                                                    onClick={() => { setIsOpenDetail(false); foc.focus(); }}
                                                                 >
                                                                     Seguir comprando
                                                                 </button>
                                                                 <button
                                                                     type="button"
                                                                     className={!item.attributes.status_stock ? `inline-flex justify-center rounded-md border border-transparent bg-gray-200 px-4 py-2 text-sm font-medium text-white` : `inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong`} disabled={!item.attributes.status_stock}
-                                                                    onClick={() => { setAddCart(true) }}
+                                                                    onClick={() => { setAddCart(true); foc.focus(); }}
                                                                 >
                                                                     Agregar al carrito
                                                                 </button>
@@ -312,7 +314,7 @@ const ProductsMobile = () => {
                                                         </div>
                                                         : null
                                                 }
-                                            </>
+                                            </div>
                                         ))
                                     }
 
