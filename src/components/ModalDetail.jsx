@@ -10,7 +10,7 @@ export default function ModalDetail({ open, setOpen, data, cant, purgCant, saveC
 
                 open ?
                     data.map((item) => (
-                        <div className="fixed z-30" aria- labelledby="modal-title" role="dialog" aria-modal="true" >
+                        <div key={item.id} className="fixed z-30" aria-labelledby="modal-title" role="dialog" aria-modal="true" >
                             <div className="fixed inset-0 bg-gray-dark bg-opacity-75 transition-opacity"></div>
 
                             <div className="fixed inset-0 z-10 overflow-y-auto">
