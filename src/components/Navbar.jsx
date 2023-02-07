@@ -10,7 +10,7 @@ import Steps from "./Steps";
 import Modal from "./Modal";
 
 const Navbar = () => {
-    const foc = document.getElementById('nav');
+    const foc = document.getElementById('#nav');
     const [navbar, setNavbar] = useState(false);
     const [modalCartVisible, setModalCartVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);

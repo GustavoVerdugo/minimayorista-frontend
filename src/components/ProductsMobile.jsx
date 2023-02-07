@@ -9,7 +9,7 @@ import useFetchCustom from '../helpers/useFetchCustom';
 const qs = require('qs');
 
 const ProductsMobile = () => {
-    const foc = document.getElementById('products-mobile');
+    const foc = document.getElementById('#products-mobile');
     const { productos, loading, filters, saveQuery, saveCart, searching } = useContext(DataContext);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenDetail, setIsOpenDetail] = useState(false);
