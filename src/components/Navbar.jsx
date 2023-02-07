@@ -8,7 +8,7 @@ import { Formik } from 'formik';
 import Dropdown from "./Dropdown";
 import Steps from "./Steps";
 import Modal from "./Modal";
-
+const isBrowser = typeof window !== "undefined";
 const Navbar = () => {
     const foc = document.getElementById('#nav');
     const [navbar, setNavbar] = useState(false);
@@ -37,7 +37,7 @@ const Navbar = () => {
     useState(() => {
         setRefres(Math.floor(Math.random() * (2000 - 1100 + 1)) + 1100);
     }, [refres])
-    return (
+    return isBrowser ? (
         <>
             <nav className="w-screen bg-blue" id="nav">
                 <div className="flex flex-row justify-between px-4 mx-auto lg:max-w-full md:items-center md:flex md:px-8">
@@ -253,6 +253,6 @@ const Navbar = () => {
                 </Dialog>
             </Transition>
         </>
-    )
+    ) : <div></div>
 }
 export default Navbar;
