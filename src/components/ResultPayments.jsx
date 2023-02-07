@@ -4,8 +4,11 @@ import React, { useEffect } from 'react'
 import { saveOrder } from '../helpers/useOrders';
 
 export default function ResultPayments() {
+  const router = useRouter();
   useEffect(() => {
-    saveOrder(localStorage.getItem('payload'));
+    localStorage.getItem('payload') ? 
+    saveOrder(localStorage.getItem('payload')) :
+    router.push('/');
   }, [])
   return (
     <div className="flex flex-col justify-center items-center bg-gray-100 min-h-full">
