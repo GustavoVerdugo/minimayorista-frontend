@@ -4,6 +4,9 @@ import React, { useEffect } from 'react'
 import { saveOrder } from '../helpers/useOrders';
 
 export default function FailedPayment() {
+  useEffect(() => {
+    console.log('mounted')
+  },[])
   return (
     <div className="flex flex-col justify-center items-center bg-gray-100 min-h-full">
       <div className="bg-white p-6 min-w-full min-h-screen  md:mx-auto">
