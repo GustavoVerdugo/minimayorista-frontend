@@ -9,7 +9,6 @@ import useFetchCustom from '../helpers/useFetchCustom';
 const qs = require('qs');
 
 const Products = () => {
-    const foc = document.getElementById('#products');
     const { productos, loading, filters, saveQuery, saveCart, searching } = useContext(DataContext);
     const aboutRef = useRef();
     const [isOpen, setIsOpen] = useState(false);
@@ -147,7 +146,7 @@ const Products = () => {
                                                     <button
                                                         type="button"
                                                         className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                        onClick={() => { purgCant(); setIsOpen(false); foc.focus(); }}
+                                                        onClick={() => { purgCant(); setIsOpen(false); }}
                                                     >
                                                         Cancelar
                                                     </button>
@@ -164,7 +163,6 @@ const Products = () => {
                                                             });
                                                             setIsOpen(false);
                                                             purgCant();
-                                                            foc.focus();
                                                         }}
                                                     >
                                                         Aceptar
@@ -272,7 +270,7 @@ const Products = () => {
                                                             <button
                                                                 type="button"
                                                                 className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                                onClick={() => { setAddCart(false); purgCant(); foc.focus(); }}
+                                                                onClick={() => { setAddCart(false); purgCant(); }}
                                                             >
                                                                 Cancelar
                                                             </button>
@@ -290,7 +288,6 @@ const Products = () => {
                                                                     setIsOpenDetail(false);
                                                                     setAddCart(false);
                                                                     purgCant();
-                                                                    foc.focus();
                                                                 }}
                                                             >
                                                                 Aceptar

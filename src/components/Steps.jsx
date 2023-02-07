@@ -121,7 +121,7 @@ const Steps = ({ content, setModalVisible, foc }) => {
               </div>
               <div className="flex flex-row justify-evenly items-center mt-8">
                 <button className="p-2 text-white bg-red-500 rounded-md outline-none focus:border-gray-400"
-                  onClick={() => { setModalVisible(false); foc.focus(); }}>
+                  onClick={() => { setModalVisible(false); }}>
                   Cancelar
                 </button>
                 <button className={active ? `bg-gray-200 rounded-md p-2` : `p-2 text-white bg-blue rounded-md outline-none focus:border-gray-400`}

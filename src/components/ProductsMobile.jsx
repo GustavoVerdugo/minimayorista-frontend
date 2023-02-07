@@ -9,7 +9,6 @@ import useFetchCustom from '../helpers/useFetchCustom';
 const qs = require('qs');
 
 const ProductsMobile = () => {
-    const foc = document.getElementById('#products-mobile');
     const { productos, loading, filters, saveQuery, saveCart, searching } = useContext(DataContext);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenDetail, setIsOpenDetail] = useState(false);
@@ -164,7 +163,7 @@ const ProductsMobile = () => {
                                                     <button
                                                         type="button"
                                                         className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                        onClick={() => { setIsOpen(false); purgCant(); foc.focus(); }}
+                                                        onClick={() => { setIsOpen(false); purgCant(); }}
                                                     >
                                                         Cancelar
                                                     </button>
@@ -181,7 +180,6 @@ const ProductsMobile = () => {
                                                             });
                                                             setIsOpen(false);
                                                             purgCant();
-                                                            foc.focus();
                                                         }}
                                                     >
                                                         Aceptar
@@ -256,14 +254,14 @@ const ProductsMobile = () => {
                                                                 <button
                                                                     type="button"
                                                                     className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                                    onClick={() => { setIsOpenDetail(false); foc.focus(); }}
+                                                                    onClick={() => { setIsOpenDetail(false); }}
                                                                 >
                                                                     Seguir comprando
                                                                 </button>
                                                                 <button
                                                                     type="button"
                                                                     className={!item.attributes.status_stock ? `inline-flex justify-center rounded-md border border-transparent bg-gray-200 px-4 py-2 text-sm font-medium text-white` : `inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong`} disabled={!item.attributes.status_stock}
-                                                                    onClick={() => { setAddCart(true); foc.focus(); }}
+                                                                    onClick={() => { setAddCart(true); }}
                                                                 >
                                                                     Agregar al carrito
                                                                 </button>

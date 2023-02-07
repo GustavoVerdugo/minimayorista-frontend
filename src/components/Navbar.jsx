@@ -10,7 +10,6 @@ import Steps from "./Steps";
 import Modal from "./Modal";
 const isBrowser = typeof window !== "undefined";
 const Navbar = () => {
-    const foc = document.getElementById('#nav');
     const [navbar, setNavbar] = useState(false);
     const [modalCartVisible, setModalCartVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
@@ -197,7 +196,7 @@ const Navbar = () => {
                                             <button
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                onClick={() => { setTimeout(setModalCartVisible(false)); foc.focus(); }}
+                                                onClick={() => { setTimeout(setModalCartVisible(false)); }}
                                             >
                                                 Cancelar
                                             </button>
@@ -245,7 +244,7 @@ const Navbar = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <Steps content={cart} setModalVisible={setModalVisible} foc={foc} />
+                                    <Steps content={cart} setModalVisible={setModalVisible} />
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
