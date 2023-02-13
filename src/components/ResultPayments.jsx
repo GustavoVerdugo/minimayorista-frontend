@@ -1,18 +1,23 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { saveOrder } from '../helpers/useOrders';
 
 export default function ResultPayments() {
   const router = useRouter();
-  const setter = () => {
-    saveOrder(localStorage.getItem('payload'));
-    setTimeout(() => { router.push('/') }, 3000);
+  const [execute, setExecute] = useState(false);
+  const setter = async () => {
+    if (!execute) {
+      await saveOrder(localStorage.getItem('payload'));
+      setExecute(true);
+      setTimeout(() => { router.push('/') }, 4000);
+    }
+
   }
   useEffect(() => {
-    localStorage.getItem('payload') ? 
-    setter():
-    router.push('/');
+    localStorage.getItem('payload') ?
+      setter() :
+      router.push('/');
   }, [])
   return (
     <div className="flex flex-col justify-center items-center bg-gray-100 min-h-full">
@@ -25,6 +30,7 @@ export default function ResultPayments() {
         <div className="text-center">
           <h3 className="md:text-2xl text-base text-gray-900 font-semibold text-center">Pago Exitoso!</h3>
           <p className="text-gray-600 my-2">Gracias por tu compra!</p>
+          <p className="text-gray-600 my-2">nos pondremos en contacto contigo para la entrega!</p>
           <p> Ten un gran día!  </p>
           <div className="py-10 text-center">
             <Link href="/" >
