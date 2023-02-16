@@ -5,11 +5,13 @@ import { saveOrder } from '../helpers/useOrders';
 
 export default function ResultPayments() {
   const router = useRouter();
+  let count = 0;
   const [execute, setExecute] = useState(false);
   const setter = async () => {
-    if (!execute) {
+    if (count<=0) {
       await saveOrder(localStorage.getItem('payload'));
-      setExecute(true);
+      count = 1;
+      localStorage.removeItem('payload');
       setTimeout(() => { router.push('/') }, 4000);
     }
 
