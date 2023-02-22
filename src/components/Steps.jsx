@@ -50,7 +50,7 @@ const Steps = ({ content, setModalVisible, foc }) => {
     }
     if (data.envio.id === 2) {
       let tp = data.subtotal + data.precio_envio;
-      handleChange('total',tp)
+      handleChange('total', tp)
     }
   }, [data.envio])
   useEffect(() => {
@@ -72,14 +72,13 @@ const Steps = ({ content, setModalVisible, foc }) => {
     <>
       {
         step === 1 ?
-          <>
-            <Dialog.Title
-              as="h3"
-              className="flex flex-col justify-center items-center text-lg font-semibold leading-6 "
+          <div className="mt-4 max-h-full">
+            <h3
+              className="flex flex-col justify-start items-center text-lg font-semibold leading-6 "
             >
               <span className='text-gray-900'>Datos Personales</span>
-            </Dialog.Title>
-            <div className="mt-10">
+            </h3>
+            <div className="mt-5 mb-5">
               <div className="grid sm:grid-cols-1 md:grid-cols-2 grid-rows-3 gap-4 justify-items-start">
                 <div>
                   <label className="mr-4 text-gray-dark">Nombre</label>
@@ -100,7 +99,7 @@ const Steps = ({ content, setModalVisible, foc }) => {
                     value={data.direccion} />
                 </div>
                 <div>
-                  <label className="mr-4 text-gray-dark">Comuna</label>
+                  <label className="mr-4 text-gray-dark self-start">Comuna</label>
                   <div style={{ width: 290 }}>
                   </div>
                   <Dropdown
@@ -126,24 +125,25 @@ const Steps = ({ content, setModalVisible, foc }) => {
                 </button>
                 <button className={active ? `bg-gray-200 rounded-md p-2` : `p-2 text-white bg-blue rounded-md outline-none focus:border-gray-400`}
                   disabled={active}
-                  onClick={() => { handleSteps(2); }}>
+                  onClick={() => { handleSteps(2); console.log(data) }}>
                   Siguiente
                 </button>
               </div>
             </div>
-          </>
+          </div>
           : step === 2 ?
             <>
-              <Dialog.Title
-                as="h3"
+              <h3
                 className="flex flex-col justify-center items-center text-lg font-semibold leading-6 "
               >
                 <span className='text-gray-900'>Envio</span>
-              </Dialog.Title>
+              </h3>
               <div className="mt-10">
                 <div className="grid grid-cols-1 grid-rows-1 gap-2 justify-items-center md:min-w-full">
                   <div className="sm:w-40 md:w-96">
                     <label className="mr-4 text-gray-dark">Envío</label>
+                    <div style={{ width: 290 }}>
+                    </div>
                     <Dropdown
                       data={tiposEnvio} onSelect={handleChange} field={'envio'} sel={data.envio} />
                   </div>
@@ -168,14 +168,13 @@ const Steps = ({ content, setModalVisible, foc }) => {
             </>
             : step === 3 ?
               <>
-                <Dialog.Title
-                  as="h3"
+                <h3
                   className="flex flex-col justify-center items-center text-lg font-semibold leading-6 "
                 >
                   <span className='text-gray-900'>Confirmación de Pedido</span>
-                </Dialog.Title>
+                </h3>
                 <div className="mt-10">
-                  <div className='flex flex-col justify-center items-center mt-8 h-fit w-auto max-h-60 overflow-y-scroll'>
+                  <div className='flex flex-col justify-center items-center mt-8 w-auto h-80 max-h-96 overflow-y-scroll overflow-x-hidden'>
                     {
                       content.map((ct) => (
                         <div className='flex flex-row justify-start items-start h-fit bg-white rounded-md' key={ct.id}>

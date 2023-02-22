@@ -8,6 +8,8 @@ import { Formik } from 'formik';
 import Dropdown from "./Dropdown";
 import Steps from "./Steps";
 import Modal from "./Modal";
+import ModalCheckout from "./ModalCheckout";
+import ModalCart from "./ModalCart";
 const isBrowser = typeof window !== "undefined";
 const Navbar = () => {
     const [navbar, setNavbar] = useState(false);
@@ -97,160 +99,10 @@ const Navbar = () => {
                 </div>
             </nav >
 
-            {/* modales */}
-            <Transition appear show={modalCartVisible} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => { }}>
-                    <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
-                        <div className="fixed inset-0 bg-black bg-opacity-50" />
-                    </Transition.Child>
-
-                    <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
-                            <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0 scale-95"
-                                enterTo="opacity-100 scale-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100 scale-100"
-                                leaveTo="opacity-0 scale-95"
-                            >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <Dialog.Title
-                                        as="h3"
-                                        className="flex flex-col justify-center items-center text-lg font-semibold leading-6 "
-                                    >
-                                        <span className='text-gray-900'>{'Tu Carrito'}</span>
-                                    </Dialog.Title>
-                                    <div className="mt-8">
-                                        <div className='flex flex-col justify-start items-center mt-8 h-60 overflow-y-scroll'>
-                                            {
-                                                cart.length > 0 ?
-                                                    cart.map((ct) => (
-                                                        <div className='flex flex-row justify-between w-full h-fit bg-white rounded-md' key={ct.id}>
-                                                            <div className='w-20 h-20'>
-                                                                <img src={ct.img} alt={ct.img} />
-                                                            </div>
-                                                            <div className='flex-shrink justify-center items-start'>
-                                                                <span className='text-gray-800 mr-2 uppercase text-xs'>{ct.name}</span>
-                                                                <div className='flex-row justify-start items-start'>
-                                                                    <span className='text-gray-800 mr-3 uppercase text-sm font-semibold'>${parseInt(ct.price).toLocaleString('es-CL')}</span>
-                                                                </div>
-                                                                <div className='flex flex-row justify-start items-center'>
-                                                                    <button className="bg-gray-100 rounded-sm p-0.5"
-                                                                        onClick={() => {
-                                                                            delCant(
-                                                                                {
-                                                                                    id: ct.id,
-                                                                                    name: ct.name,
-                                                                                    price: ct.price,
-                                                                                    img: ct.img,
-                                                                                    cant: ct.cant - 1
-                                                                                },
-                                                                                ct.cant
-                                                                            );
-                                                                        }}>
-                                                                        <FontAwesomeIcon icon={faMinus} className='h-5 w-5 text-gray-dark' aria-hidden='true' />
-                                                                    </button>
-                                                                    <span className='text-gray-dark mx-2 text-base font-semibold'>{ct.cant}</span>
-                                                                    <button className="bg-gray-100 rounded-sm p-0.5"
-                                                                        onClick={() => {
-                                                                            sumCant(
-                                                                                {
-                                                                                    id: ct.id,
-                                                                                    name: ct.name,
-                                                                                    price: ct.price,
-                                                                                    img: ct.img,
-                                                                                    cant: ct.cant + 1
-                                                                                },
-                                                                                ct.cant
-                                                                            )
-                                                                        }}>
-                                                                        <FontAwesomeIcon icon={faPlus} className='h-5 w-5 text-gray-dark' aria-hidden='true' />
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div className="flex flex-col justify-center items-center">
-                                                                <button
-                                                                    onClick={() => {
-                                                                        deleteProduct(ct.id);
-                                                                        refresh();
-                                                                    }}>
-                                                                    <FontAwesomeIcon icon={faTrashCan} className='h-6 w-6 text-red-500' aria-hidden='true' />
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    ))
-                                                    : <h1 className="text-black">Tu carrito está vacio</h1>
-                                            }
-                                        </div>
-                                        <div className='flex flex-row justify-evenly items-center mt-8'>
-                                            <button
-                                                type="button"
-                                                className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                onClick={() => { setTimeout(setModalCartVisible(false)); }}
-                                            >
-                                                Cancelar
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className={cart.length <= 0 ? `ml-2 bg-gray-200 rounded-md p-2`
-                                                    : `inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong`}
-                                                disabled={cart.length > 0 ? false : true}
-                                                onClick={() => { setTimeout(closeModal(false),100); setTimeout(setModalVisible(true), 100); }}
-                                            >
-                                                Realizar Pedido
-                                            </button>
-                                        </div>
-                                    </div>
-                                </Dialog.Panel>
-                            </Transition.Child>
-                        </div>
-                    </div>
-                </Dialog>
-            </Transition>
-            {/* Modal Embebido */}
-            <Transition appear show={modalVisible} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => { }}>
-                    <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
-                        <div className="fixed inset-0 bg-black bg-opacity-50" />
-                    </Transition.Child>
-
-                    <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
-                            <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0 scale-95"
-                                enterTo="opacity-100 scale-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100 scale-100"
-                                leaveTo="opacity-0 scale-95"
-                            >
-                                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <Steps content={cart} setModalVisible={setModalVisible} />
-                                </Dialog.Panel>
-                            </Transition.Child>
-                        </div>
-                    </div>
-                </Dialog>
-            </Transition>
+            <ModalCart cart={cart} delCant={delCant} sumCant={sumCant} deleteProduct={deleteProduct} refresh={refresh}
+            closeModal={closeModal} setModalVisible={setModalVisible} modalCartVisible={modalCartVisible}
+            setModalCartVisible={setModalCartVisible} />
+            <ModalCheckout content={cart} setModalVisible={setModalVisible} modalVisible={modalVisible} />
         </>
     ) : <div></div>
 }

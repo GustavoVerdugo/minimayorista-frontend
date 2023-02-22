@@ -6,13 +6,15 @@ import { faSquarePlus, faSquareMinus } from "@fortawesome/free-regular-svg-icons
 import Pagination from './Pagination';
 import { DataContext } from '../context/DataContext';
 import useFetchCustom from '../helpers/useFetchCustom';
+import Modal from './Modal';
+import ModalDetail from './ModalDetail';
 const qs = require('qs');
 
 const Products = () => {
     const { productos, loading, filters, saveQuery, saveCart, searching } = useContext(DataContext);
     const aboutRef = useRef();
-    const [isOpen, setIsOpen] = useState(false);
-    const [isOpenDetail, setIsOpenDetail] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [OpenDetail, setOpenDetail] = useState(false);
     const [addCart, setAddCart] = useState(false);
     const [detail, setDetail] = useState([]);
     const [cant, setCant] = useState(1);
@@ -48,7 +50,7 @@ const Products = () => {
                                             <span className='bg-red-500 text-white p-2 rounded-sm text-lg'>Agotado</span>
                                             : false}
                                     </div>
-                                    <button onClick={() => { setDetail([items]); setIsOpenDetail(!isOpenDetail) }}
+                                    <button onClick={() => { setDetail([items]); setOpenDetail(!OpenDetail) }}
                                         disabled={!items.attributes.status_stock}
                                         className="flex flex-col justify-center items-center">
                                         <img src={items.attributes.imagen_principal.data.attributes.url} alt="Product" className="h-40 w-44 object-cover rounded-t-xl" />
@@ -69,7 +71,7 @@ const Products = () => {
                                                 <p className="text-sm text-gray-600 cursor-auto ml-2">${parseInt(items.attributes.precio).toLocaleString('es-CL')}</p>
                                             </del>
                                             <button className={!items.attributes.status_stock ? `ml-2 bg-gray-200 rounded-md p-2` : `ml-2 bg-blue rounded-md p-2 hover:bg-blue-strong`} disabled={!items.attributes.status_stock}
-                                                onClick={() => { setDetail([items]); setIsOpen(!isOpen) }}>
+                                                onClick={() => { setDetail([items]); setOpen(!open) }}>
                                                 <FontAwesomeIcon icon={faCartPlus} className='h-6 w-6 text-white' aria-hidden='true' />
                                             </button>
                                         </div>
@@ -88,223 +90,13 @@ const Products = () => {
                 <Pagination />
             </div>
 
-            {/* modales */}
-            <Transition appear show={isOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => { }}>
-                    <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
-                        <div className="fixed inset-0 bg-black bg-opacity-50" />
-                    </Transition.Child>
-
-                    <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
-                            <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0 scale-95"
-                                enterTo="opacity-100 scale-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100 scale-100"
-                                leaveTo="opacity-0 scale-95"
-                            >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    {
-                                        detail.map((item) => (
-                                            <div key={item.id}>
-                                                <Dialog.Title
-                                                    as="h3"
-                                                    className="flex flex-row justify-center items-center max-w-sm text-lg font-bold leading-6 text-gray-900"
-                                                >
-                                                    ¿ Añadir &quot;{item.attributes.nombre}&quot; al Carrito ?
-                                                </Dialog.Title>
-                                                <div className="mt-8">
-                                                    <img
-                                                        src={item.attributes.imagen_principal.data.attributes.url}
-                                                        className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
-                                                    />
-                                                    <div className='flex flex-row justify-center items-center mt-8'>
-                                                        <button className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'
-                                                            onClick={() => { delCant() }}>
-                                                            <FontAwesomeIcon icon={faMinus} className='w-5 h-5' aria-hidden="true" />
-                                                        </button>
-                                                        <span className='mx-4 font-bold text-lg'>{cant}</span>
-                                                        <button className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'
-                                                            onClick={() => { addCant() }}>
-                                                            <FontAwesomeIcon icon={faPlus} className='w-5 h-5' aria-hidden="true" />
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <div className="flex flex-row justify-evenly mt-10">
-                                                    <button
-                                                        type="button"
-                                                        className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                        onClick={() => { purgCant(); setIsOpen(false); }}
-                                                    >
-                                                        Cancelar
-                                                    </button>
-                                                    <button
-                                                        type="button"
-                                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong"
-                                                        onClick={() => {
-                                                            saveCart({
-                                                                id: item.id,
-                                                                name: item.attributes.nombre,
-                                                                price: item.attributes.precio_oferta,
-                                                                img: item.attributes.imagen_principal.data.attributes.url,
-                                                                cant: cant
-                                                            });
-                                                            setIsOpen(false);
-                                                            purgCant();
-                                                        }}
-                                                    >
-                                                        Aceptar
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        ))
-                                    }
-
-                                </Dialog.Panel>
-                            </Transition.Child>
-                        </div>
-                    </div>
-                </Dialog>
-            </Transition>
-
-            <Transition appear show={isOpenDetail} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => { }}>
-                    <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
-                        <div className="fixed inset-0 bg-black bg-opacity-50" />
-                    </Transition.Child>
-
-                    <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
-                            <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0 scale-95"
-                                enterTo="opacity-100 scale-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100 scale-100"
-                                leaveTo="opacity-0 scale-95"
-                            >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    {
-                                        detail.map((item) => (
-                                            <div key={item.id}>
-                                                <Dialog.Title
-                                                    as="h3"
-                                                    className="flex flex-col justify-center items-center text-lg font-semibold leading-6 "
-                                                >
-                                                    <span className='text-gray-900'>{item.attributes.nombre}</span>
-                                                    {
-                                                        item.attributes.marca.data === null ?
-                                                            <span className='text-gray-600'>GENERICO</span>
-                                                            :
-                                                            <span className='text-gray-600'>{item.attributes.marca.data.attributes.nombre}</span>
-                                                    }
-                                                </Dialog.Title>
-                                                <div className="mt-8">
-                                                    <img
-                                                        src={item.attributes.imagen_principal.data.attributes.url}
-                                                        className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
-                                                    />
-                                                    <div className='flex flex-col justify-center items-center mt-8'>
-                                                        <p className="text-lg font-bold text-black cursor-auto my-3">${parseInt(item.attributes.precio_oferta).toLocaleString('es-CL')}</p>
-                                                        <del>
-                                                            <p className="text-sm text-gray-600 cursor-auto">${parseInt(item.attributes.precio).toLocaleString('es-CL')}</p>
-                                                        </del>
-                                                    </div>
-                                                    {
-                                                        !addCart ?
-                                                            <div className="flex flex-row justify-evenly mt-10">
-                                                                <button
-                                                                    type="button"
-                                                                    className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                                    onClick={() => { setIsOpenDetail(false) }}
-                                                                >
-                                                                    Seguir comprando
-                                                                </button>
-                                                                <button
-                                                                    type="button"
-                                                                    className={!item.attributes.status_stock ? `inline-flex justify-center rounded-md border border-transparent bg-gray-200 px-4 py-2 text-sm font-medium text-white` : `inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong`} disabled={!item.attributes.status_stock}
-                                                                    onClick={() => { setAddCart(true) }}
-                                                                >
-                                                                    Agregar al carrito
-                                                                </button>
-                                                            </div>
-                                                            :
-                                                            <div className='flex flex-row justify-center items-center mt-8'>
-                                                                <button className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'
-                                                                    onClick={() => { delCant(); }}>
-                                                                    <FontAwesomeIcon icon={faMinus} className='w-5 h-5' aria-hidden="true" />
-                                                                </button>
-                                                                <span className='mx-4 font-bold text-lg'>{cant}</span>
-                                                                <button className='bg-transparent flex flex-row justify-center items-center rounded-lg border-2 border-gray-700'
-                                                                    onClick={() => { addCant(); }}>
-                                                                    <FontAwesomeIcon icon={faPlus} className='w-5 h-5' aria-hidden="true" />
-                                                                </button>
-                                                            </div>
-                                                    }
-                                                </div>
-
-                                                {
-                                                    addCart ?
-                                                        <div className="flex flex-row justify-evenly mt-10">
-                                                            <button
-                                                                type="button"
-                                                                className="inline-flex justify-center rounded-md border-gray-dark bg-transparent border-2 px-4 py-2 text-sm font-medium text-black"
-                                                                onClick={() => { setAddCart(false); purgCant(); }}
-                                                            >
-                                                                Cancelar
-                                                            </button>
-                                                            <button
-                                                                type="button"
-                                                                className="inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue-strong"
-                                                                onClick={() => {
-                                                                    saveCart({
-                                                                        id: item.id,
-                                                                        name: item.attributes.nombre,
-                                                                        price: item.attributes.precio_oferta,
-                                                                        img: item.attributes.imagen_principal.data.attributes.url,
-                                                                        cant: cant
-                                                                    });
-                                                                    setIsOpenDetail(false);
-                                                                    setAddCart(false);
-                                                                    purgCant();
-                                                                }}
-                                                            >
-                                                                Aceptar
-                                                            </button>
-                                                        </div>
-                                                        : null
-                                                }
-                                            </div>
-                                        ))
-                                    }
-
-                                </Dialog.Panel>
-                            </Transition.Child>
-                        </div>
-                    </div>
-                </Dialog>
-            </Transition>
+            <Modal open={open} setOpen={setOpen} data={detail}
+                cant={cant} purgCant={purgCant} saveCart={saveCart}
+                delCant={delCant} addCant={addCant} />
+            <ModalDetail open={OpenDetail} setOpen={setOpenDetail} data={detail}
+                cant={cant} purgCant={purgCant} saveCart={saveCart}
+                delCant={delCant} addCant={addCant} addCart={addCart}
+                setAddCart={setAddCart} />
         </>
     )
 }
