@@ -1,7 +1,7 @@
 export async function sendOrder(payload, payDetail) {
     localStorage.setItem('payload', JSON.stringify(payload));
     let dt = {
-        commerceOrder: Math.floor(Math.random() * (2000 - 1100 + 1)) + 1100,
+        commerceOrder: Math.floor(Math.random() * (2000 - 1100 + 1)) + 1100 + Math.floor(Math.random() * (20000 - 1100 + 1)) + 110,
         subject: "Pago Minimayorista",
         currency: "CLP",
         amount: payDetail.amount,
