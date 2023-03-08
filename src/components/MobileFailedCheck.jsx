@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { saveOrder } from '../helpers/useOrders';
 
-export default function MobilePayments() {
+export default function MobileFailedCheck() {
   const router = useRouter();
   useEffect(() => {
-    router.replace('minimayorista://check');
+    router.replace('minimayorista://fail');
   }, [])
   return (
     <div></div>
