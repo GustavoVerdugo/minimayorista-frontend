@@ -93,7 +93,7 @@ export default function ModalDetail({ open, setOpen, data, cant, purgCant, saveC
                                                                             img: item.attributes.imagen_principal.data.attributes.url,
                                                                             cant: cant
                                                                         });
-                                                                        setOpenDetail(false);
+                                                                        setOpen(false);
                                                                         setAddCart(false);
                                                                         purgCant();
                                                                     }}
