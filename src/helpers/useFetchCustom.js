@@ -8,12 +8,12 @@ const useFetchCustom = (url) => {
     const getProductsByFilters = async () => {
         if (query != null) {
             setSearching(true);
-            const response = await fetch(`${PROD}productos?${query}&populate=*&pagination[page]=1&pagination[pageSize]=25`)
+            const response = await fetch(`${PROD}productos?${query}&populate=*&sort[0]=nombre%3Aasc&pagination[page]=1&pagination[pageSize]=25`)
             const data = await response.json()
             await saveProduct(data.data);
         } else {
             setSearching(true);
-            const response = await fetch(`${PROD}productos?populate=*&pagination[page]=1&pagination[pageSize]=25`)
+            const response = await fetch(`${PROD}productos?populate=*&sort[0]=nombre%3Aasc&pagination[page]=1&pagination[pageSize]=25`)
             const data = await response.json()
             await saveProduct(data.data);
         }
