@@ -7,13 +7,13 @@ const Pagination = () => {
     async function callProductsPagination() {
         if (page > 0 && page <= pagination) {
             if (query != null) {
-                const response = await fetch(`${PROD}productos?${query}&populate=*&pagination[page]=${page}&pagination[pageSize]=25`)
+                const response = await fetch(`${PROD}productos?${query}&populate=*&sort[0]=nombre%3Aasc&pagination[page]=${page}&pagination[pageSize]=25`)
                 const data = await response.json()
                 await saveProduct(data.data);
                 await savePagination(data.meta.pagination.pageCount)
                 setSearching(false);
             } else {
-                const response = await fetch(`${PROD}productos?populate=*&pagination[page]=${page}&pagination[pageSize]=25`)
+                const response = await fetch(`${PROD}productos?populate=*&sort[0]=nombre%3Aasc&pagination[page]=${page}&pagination[pageSize]=25`)
                 const data = await response.json()
                 await saveProduct(data.data);
                 await savePagination(data.meta.pagination.pageCount)
