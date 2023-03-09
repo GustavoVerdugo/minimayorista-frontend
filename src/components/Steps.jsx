@@ -139,15 +139,15 @@ const Steps = ({ content, setModalVisible, foc }) => {
                 <span className='text-gray-900'>Envio</span>
               </h3>
               <div className="mt-10">
-                <div className="grid grid-cols-1 grid-rows-1 gap-2 justify-items-center md:min-w-full">
-                  <div className="sm:w-40 md:w-96">
+                <div className="grid grid-cols-1 grid-rows-1 gap-4 justify-items-center md:min-w-full">
+                  <div>
                     <label className="mr-4 text-gray-dark">Envío</label>
                     <div style={{ width: 290 }}>
                     </div>
                     <Dropdown
                       data={tiposEnvio} onSelect={handleChange} field={'envio'} sel={data.envio} />
                   </div>
-                  <div className="sm:w-40 md:w-96">
+                  <div>
                     <label className="mr-4 text-gray-dark">Nota especial</label>
                     <textarea id="message" rows="8" className="resize-none block p-2.5 w-full text-base text-gray-dark bg-gray-100 rounded-lg border border-gray-200"
                       onChange={nota_cliente => handleChange('nota_cliente', nota_cliente.target.value)} placeholder="Escribe algún comentario ..."></textarea>
@@ -174,7 +174,7 @@ const Steps = ({ content, setModalVisible, foc }) => {
                   <span className='text-gray-900'>Confirmación de Pedido</span>
                 </h3>
                 <div className="mt-10">
-                  <div className='flex flex-col justify-center items-center mt-8 w-auto h-80 max-h-96 overflow-y-scroll overflow-x-hidden'>
+                  <div className='flex flex-col justify-center items-center mt-8 w-auto max-h-full overflow-y-scroll overflow-x-hidden'>
                     {
                       content.map((ct) => (
                         <div className='flex flex-row justify-start items-start h-fit bg-white rounded-md' key={ct.id}>

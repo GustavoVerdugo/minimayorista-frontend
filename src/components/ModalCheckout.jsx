@@ -18,7 +18,7 @@ export default function ModalCheckout({ content, setModalVisible, modalVisible }
                 <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
                   <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <div className="sm:flex sm:items-center">
-                      <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                      <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left min-w-full">
                         <Steps content={content} setModalVisible={setModalVisible} />
                       </div>
                     </div>
