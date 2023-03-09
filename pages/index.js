@@ -44,7 +44,7 @@ export default function Home() {
                     <Navbar />
                   </div>
                   <main className='flex flex-col justify-center relative'>
-                    <Announc />
+                    {/* <Announc /> */}
                     <Banner />
                     <BrandSlider />
                     <ProductsList />
